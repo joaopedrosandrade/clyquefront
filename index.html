@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clyque.bio</title>
+  <link rel="icon" href="assets/img/heading-img.png">
+  <!-- CSS only -->
+   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+   <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+   <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+   <!-- fancybox -->
+   <link rel="stylesheet" href="assets/css/jquery.fancybox.min.css">
+   <!-- Font Awesome 6 -->
+   <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+   <link rel="stylesheet" href="assets/font/flaticon_mycollection.css">
+   <!-- style -->
+   <link rel="stylesheet" href="assets/css/style.css">
+   <!-- responsive -->
+   <link rel="stylesheet" href="assets/css/responsive.css"> 
+ </head>
+ <style>
+  .terms-text {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.terms-text a {
+    color: var(--main-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.terms-text a:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    background-color: #56F982; /* Cor de fundo personalizada */
+    color: #000; /* Texto preto para melhor contraste */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 30px;
+    border-radius: 12px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    border: none;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Efeito hover para escurecer um pouco a cor */
+.login-btn:hover {
+    background-color: #42d86f;
+    transform: scale(1.05); /* Leve aumento no hover */
+}
+
+
+
+ </style>
+<body>
+
+<!-- header -->
+<header id="stickyHeader">
+  <div class="container">
+    <div class="top-bar">
+      <div class="logo">
+        <a href="#">
+          <img alt="logo" src="assets/img/logo.png">
+        </a>
+      </div>
+      <nav class="navbar">
+          <ul class="navbar-links">
+            
+            <li class="navbar-dropdown">
+              <a href="#about"> Funcionalidades </a>
+            </li>
+            <li class="navbar-dropdown">
+              <a href="#services">Dúvidas</a>
+            </li>
+           
+            <li class="navbar-dropdown">
+              <a href="#pricing">Valores</a>
+            </li>
+          
+          </ul>
+        </nav>
+        <a href="login.html" class="button  login-btn"><span style="color: #000;"><span>ACESSAR</span></span></a>
+    </div>
+  </div>
+</header>
+<!-- header end -->
+<section class="hero-section" style="background-image: url(assets/img/line-img.jpg);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="hero-text sec-title-animation animation-style2">
+          <span class="title-animation">clyque.bio</span>
+          <h2 class="title-animation">Muito além <br> de um LINK...</h2>
+          <div class="d-flex listing">
+            <p>Crie links inteligentes e encurte URLs com facilidade!<br> Gere QR codes personalizados e muito mais!</p>
+          </div>  
+        </div>
+        
+      </div>
+      <div class="col-lg-5">
+        <form role="form" class="get-a-quote" id="contact-form" method="post">
+          <img src="assets/img/fom-img.png" alt="img"> 
+            <h3>Comece agora!</h3>
+            <h6>É GRÁTIS e RÁPIDO!</h6> 
+            <input type="text" name="Nome" placeholder="Nome" required=""> 
+            <input type="email" name="Email Address" placeholder="Email" required=""> 
+            <div class="password-container">
+              <input type="password" id="password" name="password" placeholder="Crie uma senha" required=""  autocomplete="new-password">
+              <i class="fa-solid fa-eye" id="togglePassword"></i>
+          </div>
+          
+            <p>Meu link será para: </p>
+            <div class="d-flex align-items-center">
+                <div class="radio-button">
+                    <input type="radio" id="VirtualIn-Office" name="fav_language" value="Virtual">
+                    <label for="Virtual">Uso Pessoal</label>
+                </div>
+                <div class="radio-button">
+                   <input type="radio" id="css" name="fav_language" value="In-Office">
+                    <label for="css">Minha Empresa</label><br>
+                </div>
+            </div>
+            <button type="submit" class="button btn"><span><span>Cadastrar</span></span></button>
+            <p class="terms-text">
+              Ao se cadastrar, você concorda com nossos 
+              <a href="termos.html" target="_blank">Termos de Uso</a> e 
+              <a href="privacidade.html" target="_blank">Política de Privacidade</a>.
+          </p>
+           
+            <!--   -->
+        </form> 
+      </div>
+    </div>
+  </div>
+  <ul class="shaps-img">
+    <li><img src="assets/img/shaps-4.png" alt="img"></li>
+    <li><img src="assets/img/shaps-4.png" alt="img"></li>
+    <li><img src="assets/img/shaps-1.png" alt="img"></li>
+    <li><img src="assets/img/shaps-2.png" alt="img"></li>
+    <li><img src="assets/img/shaps-3.png" alt="img"></li> 
+  </ul>
+</section> 
+
+<section id="about" class="gap">
+  <div class="container">
+    <div class="heading sec-title-animation animation-style2">
+      <span class="title-animation">Tudo o que você precisa em um só lugar</span>
+      <h2 class="title-animation">A melhor solução para você e seu negócio!</h2>
+</div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="presenting two">
+          <div>
+            <i class="flaticon-maintenance"></i>
+          </div>
+          <div>
+            <h3>Páginas de Bio Link</h3>
+            <p>Crie sua página de links personalizada com facilidade! Escolha blocos, ajuste detalhes e compartilhe nos seus perfis.</p>
+          </div>
+        </div>
+        <div class="presenting">
+          <div>
+            <i class="flaticon-cursor"></i>
+          </div>
+          <div>
+            <h3>QR Codes</h3>
+            <p>Gere QR Codes exclusivos com modelos prontos e personalizáveis! Torne-os únicos e destaque sua marca com estilo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="presenting">
+          <div>
+            <i class="flaticon-helpdesk"></i>
+          </div>
+          <div>
+            <h3>Links Encurtados</h3>
+            <p>Crie e compartilhe links encurtados em segundos! Personalize, organize e direcione seu público com eficiência.</p>
+          </div>
+        </div>
+        <div class="presenting">
+          <div>
+            <i class="flaticon-programming"></i>
+          </div>
+          <div>
+            <h3>Análises Completas</h3>
+            <p>Acompanhe seus links em tempo real! Obtenha insights valiosos e otimize sua estratégia de marketing com dados precisos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="gap how-it-works" style="background-image: url(assets/img/shaps-bg.png);">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="heading two sec-title-animation animation-style2">
+          <span class="title-animation">How it Works </span>
+          <h2 class="title-animation">How do you get started?</h2>
+          <p>component library to build your own components and pieces of UI. Reuse existing Hero, sections component library to build your own components. </p>
+        </div>
+        <ul class="chek">
+          <li><img src="assets/img/chek.png" alt="img"> When an unknown printer took a galley</li>
+          <li><img src="assets/img/chek.png" alt="img"> Blocks & components you need to create a website.</li>
+          <li><img src="assets/img/chek.png" alt="img"> App gives you the blocks & components</li>
+          <li><img src="assets/img/chek.png" alt="img"> Super fast page loading on all device.</li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="how-do-stap">
+              <span>1</span>
+              <i class="flaticon-mail"></i>
+              <h4>Send us a free email with all the infomration.</h4>
+            </div>
+            <div class="how-do-stap two">
+              <span>2</span>
+              <i class="flaticon-team-building"></i>
+              <h4>Our team will work full time on your mission. </h4>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="how-do-stap three">
+              <span>3</span>
+              <i class="flaticon-security"></i>
+              <h4>Pay only if you're satisfied with the result!</h4>
+            </div>
+            <div class="video">
+              <img src="https://placehold.co/300x260" alt="img">
+              <a class="video-pop" data-fancybox="" href="https://www.youtube.com/watch?v=1La4QzGeaaQ"><i class="fa-solid fa-play"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gap accordion-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="heading two sec-title-animation animation-style2">
+          <span class="title-animation">Perguntas Frequentes</span>
+          <h2 class="title-animation">Dúvidas? Temos as respostas.</h2> 
+        </div>
+        <div class="accordion">
+            <div class="accordion-item">
+                <a href="#" class="heading">
+                    <div class="icon"></div>
+                    <div class="title">O que é uma página de Bio Link?</div>
+                </a>
+                <div class="content">
+                    <p>Uma página de Bio Link é um hub personalizável onde você pode reunir todos os seus links importantes e compartilhá-los em redes sociais, simplificando o acesso do seu público.</p>
+                </div>
+            </div> 
+            <div class="accordion-item active">
+                <a href="#" class="heading">
+                    <div class="icon"></div>
+                    <div class="title">Posso personalizar meu QR Code?</div>
+                </a>
+                <div class="content" style="display: block;">
+                    <p>Sim! Nosso gerador de QR Codes permite personalizar cores, adicionar logotipos e ajustar o design para que ele combine com sua marca.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <a href="#" class="heading">
+                    <div class="icon"></div>
+                    <div class="title">Como funcionam os links encurtados?</div>
+                </a>
+                <div class="content">
+                    <p>Os links encurtados transformam URLs longas em versões curtas e fáceis de compartilhar, permitindo rastreamento de cliques e melhor gerenciamento dos acessos.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <a href="#" class="heading">
+                    <div class="icon"></div>
+                    <div class="title">Posso acompanhar o desempenho dos meus links?</div>
+                </a>
+                <div class="content">
+                    <p>Sim! Nossa plataforma fornece análises avançadas em tempo real, mostrando acessos, localização dos visitantes e outras métricas essenciais.</p>
+                </div>
+            </div> 
+            <div class="accordion-item">
+                <a href="#" class="heading">
+                    <div class="icon"></div>
+                    <div class="title">A plataforma é gratuita?</div>
+                </a>
+                <div class="content">
+                    <p>Oferecemos um plano gratuito com recursos básicos, além de opções premium com ferramentas avançadas para personalização e monitoramento.</p>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="accordion-contact">
+          <h4>Telefone: <a href="callto:+1238717662">+1 23871 7662</a></h4>
+          <h4>Email: <a href="mailto:info@domainname.com">info@domainname.com</a></h4>
+          <a href="#" class="button btn"><span><span>Entre em Contato</span></span></a>
+        </div>
+        <div class="accordion-img">
+          <img src="https://placehold.co/416x574" alt="img">
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="shaps-img">
+    <li><img src="assets/img/shaps-3.png" alt="img"></li> 
+  </ul>
+</section>
+
+<section id="pricing" class="gap no-top">
+  <div class="container">
+    <div class="heading sec-title-animation animation-style2">
+      <span class="title-animation">Plans and Pricing </span>
+      <h2 class="title-animation">Honest pricing. No surprises. No credit card required </h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="pricing">
+          <div class="pricing-plans">
+            <span>Gratuito</span>
+            <h5>R$ 0 <sub>/ mês</sub></h5>
+          </div>
+          <div class="pricing-plans-text">
+            <i class="flaticon-price-tag"></i>
+            <p>A custom logo design is a crucial part of your overall branding process. </p>
+               <ul class="chek">
+                  <li><img src="assets/img/chek.png" alt="img"> 1 Link Personalizado </li>
+                  <li><img src="assets/img/chek.png" alt="img"> Relatório de Acesso </li>
+                  <li><img src="assets/img/chek.png" alt="img"> Monthly Report </li>
+                  <li><img src="assets/img/chek.png" alt="img"> No Minimum Term</li>
+                </ul>
+                <a href="#" class="button btn"><span><span>COMEÇAR GRATUITAMENTE</span></span></a> 
+          </div>
+        </div>
+      </div> 
+      <div class="col-lg-6 col-md-6">
+        <div class="pricing">
+          <div class="pricing-plans">
+            <span>Profissional</span>
+            <h5>R$ 21,90 <sub>/ mês</sub></h5>
+          </div>
+          <div class="pricing-plans-text">
+            <i class="flaticon-price-tag"></i>
+            <p>A custom logo design is a crucial part of your overall branding process. </p>
+               <ul class="chek">
+                  <li><img src="assets/img/chek.png" alt="img"> Links Ilimitados </li>
+                  <li><img src="assets/img/chek.png" alt="img"> Relatório de Acesso </li>
+                  <li><img src="assets/img/chek.png" alt="img"> Monthly Report </li>
+                  <li><img src="assets/img/chek.png" alt="img"> No Minimum Term</li>
+                </ul>
+                <a href="#" class="button btn"><span><span>ASSINAR PLANO</span></span></a> 
+          </div>
+        </div>
+      </div> 
+      
+    </div>
+  </div>
+</section>
+
+
+
+<footer class="gap no-bottom" style="background-image: url(assets/img/footer.jpg);">
+  <div class="container">
+    <div class="footer-try">
+      <div>
+        <h2>Start Your Business and Achieve Goals</h2> 
+        <p>Great and strong landing page made to enhance the marketer's workflow.</p>
+      </div>
+        <a href="#" class="button btn"><span><span>Try 14 Days for Free</span></span></a> 
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="footer-logo">
+          <img src="assets/img/logo.png" alt="img">
+          <p>component library to build your own components  of UI. Reuse existing Hero, sections component lie your own components. </p>
+          <ul class="social-media">
+            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="flaticon-twitter"></i></a></li>
+            <li><a href="#"><i class="flaticon-instagram"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12">
+        <div class="widget-title">
+          <h3>Useful Links</h3>
+          <ul>
+      
+            <li><i class="fa-solid fa-angles-right"></i><a href="#">Health &amp; Safety </a></li>
+            <li><i class="fa-solid fa-angles-right"></i><a href="#">Environmental</a></li>
+            
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="widget-title">
+          <h3>Contact Us</h3>
+          <div class="get-in-touch">
+            <div><i class="flaticon-map-location"></i></div>
+            <div>
+              <span>Phone No:</span>
+              <h6><a href="callto:+15554361747">+1 0109 -1812-347</a></h6>
+            </div>
+          </div>
+        
+       
+        </div>
+      </div>
+    </div>
+    <div class="all-rights">
+      <p>© 2024 websole by Websole. All Rights Reserved.</p>
+      <div class="review"> 
+        <img alt="img" src="assets/img/google-w.png">
+         <ul class="star">
+          <li><i class="fa-solid fa-star"></i></li>
+          <li><i class="fa-solid fa-star"></i></li>
+          <li><i class="fa-solid fa-star"></i></li>
+          <li><i class="fa-solid fa-star"></i></li>
+          <li><i class="fa-solid fa-star"></i></li>
+        </ul>
+        <h6>(5.0) </h6>
+      </div>
+    </div>
+  </div>
+  <ul class="shaps-img">
+    <li><img src="assets/img/shaps-4.png" alt="img"></li> 
+    <li><img src="assets/img/shaps-1.png" alt="img"></li>
+    <li><img src="assets/img/shaps-2.png" alt="img"></li> 
+  </ul>
+</footer>
+<div id="scroll-percentage"><span id="scroll-percentage-value"></span></div>
+<!-- jQuery -->
+<script src="assets/js/jquery-3.6.0.min.js"></script> 
+<script src="assets/js/bootstrap.min.js"></script>  
+<script src="assets/js/jquery.fancybox.min.js"></script>
+<script src="assets/js/splitText.js"></script>
+<script src="assets/js/gsap.js"></script> 
+<script src="assets/js/scrolltrigger.js"></script> 
+<script src="assets/js/custom.js"></script>  
+<script src="assets/js/sweetalert.min.js"></script>
+<script src="assets/js/contact.js"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const passwordField = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+
+    togglePassword.addEventListener("click", function () {
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            togglePassword.classList.remove("fa-eye");
+            togglePassword.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            togglePassword.classList.remove("fa-eye-slash");
+            togglePassword.classList.add("fa-eye");
+        }
+    });
+});
+
+</script>
+</body>
