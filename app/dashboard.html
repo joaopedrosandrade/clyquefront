@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Clyque.bio</title>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>clyque<span>.bio</span></h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li class="active">
+                    <a href="#"><i class="fas fa-home"></i> <span>Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-layer-group"></i> <span>Bio Links</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-link"></i> <span>Links Curtos</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-qrcode"></i> <span>QR Codes</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-chart-line"></i> <span>Análises</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="logout desktop-logout">
+            <a href="#"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a>
+        </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <header class="top-bar">
+            <h1>Dashboard</h1>
+            <div class="user-info">
+                <span class="user-name">Olá, Usuário</span>
+                <img src="assets/img/avatar.svg" alt="Avatar" class="avatar">
+                <div class="logout mobile-logout">
+                    <a href="#"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mensagem de Boas-vindas -->
+        <section class="welcome-message">
+            <div class="welcome-icon">
+                <i class="fas fa-stars"></i>
+            </div>
+            <div class="welcome-content">
+                <h2>Bem-vindo ao Clyque.bio! 🎉</h2>
+                <p>Obrigado por se cadastrar! Estamos muito felizes em ter você conosco. Para começar sua jornada, que tal criar seu primeiro bio link? É rápido, fácil e vai ajudar você a compartilhar todo seu conteúdo em um só lugar.</p>
+            </div>
+        </section>
+
+        <!-- Criar Bio Link -->
+        <section class="create-bio">
+            <h2>CRIE SUA PÁGINA DE BIO</h2>
+            <div class="bio-input-container">
+                <div class="domain-group">
+                    <label>
+                        Escolha um nome único 
+                        <span class="info-icon" title="Escolha um nome único para sua página">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <div class="preview-box">https://clyque.bio/<span id="preview-text">nome-personalizado</span></div>
+                    <div class="url-input">
+                        <input type="text" placeholder="nome-personalizado" class="bio-url-input" id="bio-url-input">
+                        <button class="create-button">CRIAR</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards de Estatísticas -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>Bio Links</h3>
+                    <span class="number">2</span>
+                </div>
+                <p>Total de cliques: 2,099</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>Links Curtos</h3>
+                    <span class="number">2</span>
+                </div>
+                <p>Total de cliques: 879</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>QR Codes</h3>
+                    <span class="number">2</span>
+                </div>
+                <p>Total de scans: 612</p>
+            </div>
+        </div>
+
+        <!-- Atividade Recente -->
+        <section class="recent-activity">
+            <h2>Atividade Recente</h2>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <div class="activity-info">
+                        <h4>Link curto criado</h4>
+                        <p>Promoção de Abril</p>
+                    </div>
+                    <span class="activity-time">Hoje, 14:32</span>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="activity-info">
+                        <h4>QR Code escaneado</h4>
+                        <p>Cardápio Digital - 43 novos scans</p>
+                    </div>
+                    <span class="activity-time">Ontem, 20:15</span>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="activity-info">
+                        <h4>Bio Link atualizado</h4>
+                        <p>Meu Portfólio</p>
+                    </div>
+                    <span class="activity-time">10/04, 09:45</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gráfico de Estatísticas -->
+        <section class="traffic-stats">
+            <div class="stats-header">
+                <h2>Estatísticas de Tráfego</h2>
+                <select id="timeRange">
+                    <option value="7">Últimos 7 dias</option>
+                    <option value="30">Últimos 30 dias</option>
+                    <option value="90">Últimos 90 dias</option>
+                </select>
+            </div>
+            <div class="chart-container">
+                <canvas id="trafficChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script>
+        // Live preview do bio link
+        document.getElementById('bio-url-input').addEventListener('input', function(e) {
+            const previewText = document.getElementById('preview-text');
+            previewText.textContent = e.target.value || 'nome-personalizado';
+        });
+    </script>
+</body>
+</html> 

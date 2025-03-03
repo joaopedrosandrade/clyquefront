@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Bio Link - Clyque.bio</title>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/biolink-editor.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>clyque<span>.bio</span></h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li>
+                    <a href="dashboard.html"><i class="fas fa-home"></i> <span>Dashboard</span></a>
+                </li>
+                <li class="active">
+                    <a href="#"><i class="fas fa-layer-group"></i> <span>Bio Links</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-link"></i> <span>Links Curtos</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-qrcode"></i> <span>QR Codes</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-chart-line"></i> <span>Análises</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="logout desktop-logout">
+            <a href="#"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a>
+        </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <header class="top-bar">
+            <h1>Editor Bio Link</h1>
+            <div class="user-info">
+                <span class="user-name">Olá, Usuário</span>
+                <img src="assets/img/avatar.svg" alt="Avatar" class="avatar">
+                <div class="logout mobile-logout">
+                    <a href="#"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a>
+                </div>
+            </div>
+        </header>
+
+        <div class="editor-container">
+            <!-- Painel de Edição -->
+            <section class="editor-panel">
+                <div class="editor-tabs">
+                    <button class="tab-button active">Customização</button>
+                    <button class="tab-button">Blocos</button>
+                </div>
+
+                <div class="editor-content">
+                    <!-- Seção de URL -->
+                    <div class="editor-section">
+                        <h3>URL Curto <i id="statusIcon" class="fas fa-circle" style="color: var(--primary-color);"></i></h3>
+                        <div class="url-field">
+                            <div class="url-prefix">https://clyque.bio/</div>
+                            <input type="text" value="zlict6ikaq" id="biolink-url">
+                        </div>
+                        <div class="url-actions">
+                            <button class="url-button active" id="toggleButton">
+                                <i class="fas fa-toggle-on"></i> Ativo
+                            </button>
+                            <button class="url-button" id="copyButton">
+                                <i class="fas fa-copy"></i> Copiar URL
+                            </button>
+                            <button class="url-button stats">
+                                <i class="fas fa-chart-line"></i> Análises
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Seção de Customização -->
+                    <div class="editor-section">
+                        <h3>Customização</h3>
+                        <div class="customization-options">
+                            <div class="option-group">
+                                <label>Fundo</label>
+                                <div class="background-selector">
+                                    <button class="bg-option solid active">Sólido</button>
+                                    <button class="bg-option gradient">Gradiente</button>
+                                </div>
+                                <div class="color-picker">
+                                    <input type="color" id="bgColor1" value="#9C27B0">
+                                    <input type="color" id="bgColor2" value="#3F51B5" class="hidden">
+                                </div>
+                            </div>
+
+                            <div class="option-group">
+                                <label>Fonte</label>
+                                <select id="fontFamily">
+                                    <option value="Inter">Inter</option>
+                                    <option value="Roboto">Roboto</option>
+                                    <option value="Poppins">Poppins</option>
+                                </select>
+                            </div>
+
+                            <div class="option-group">
+                                <label>Cor do Texto</label>
+                                <input type="color" id="textColor" value="#FFFFFF">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="editor-actions">
+                        <button class="save-button">Salvar Alterações</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview do Smartphone -->
+            <section class="preview-panel">
+                <div class="smartphone-wrapper">
+                    <div class="smartphone">
+                        <div class="smartphone-screen">
+                            <div class="preview-content" id="previewContent">
+                                <div class="bio-header">
+                                    <!-- Removido o h1 daqui -->
+                                </div>
+                                <div class="bio-content">
+                                    <!-- O conteúdo do preview será atualizado via JavaScript -->
+                                </div>
+                                <div class="bio-footer">
+                                    <img src="assets/img/clyque2.png" alt="Clyque.bio Logo" style="max-width: 60%; height: auto;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Controle do botão de ativar/desativar
+            const toggleButton = document.getElementById('toggleButton');
+            const statusIcon = document.getElementById('statusIcon');
+            toggleButton.addEventListener('click', function() {
+                const isActive = this.classList.contains('active');
+                if (isActive) {
+                    this.classList.remove('active');
+                    this.innerHTML = '<i class="fas fa-toggle-off"></i> Inativo';
+                    this.style.backgroundColor = 'red';
+                    statusIcon.style.color = 'red';
+                } else {
+                    this.classList.add('active');
+                    this.innerHTML = '<i class="fas fa-toggle-on"></i> Ativo';
+                    this.style.backgroundColor = 'var(--primary-color)';
+                    statusIcon.style.color = 'var(--primary-color)';
+                }
+            });
+
+            // Funcionalidade de copiar URL
+            const copyButton = document.getElementById('copyButton');
+            const urlInput = document.getElementById('biolink-url');
+            const urlPrefix = document.querySelector('.url-prefix').textContent;
+
+            copyButton.addEventListener('click', async function() {
+                const fullUrl = urlPrefix + urlInput.value;
+                try {
+                    await navigator.clipboard.writeText(fullUrl);
+                    
+                    // Feedback visual
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                    this.classList.add('active');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.classList.remove('active');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Erro ao copiar:', err);
+                }
+            });
+
+            // Preview em tempo real
+            const bgColor1 = document.getElementById('bgColor1');
+            const bgColor2 = document.getElementById('bgColor2');
+            const previewContent = document.getElementById('previewContent');
+            const solidBtn = document.querySelector('.bg-option.solid');
+            const gradientBtn = document.querySelector('.bg-option.gradient');
+
+            function updateBackground() {
+                if (solidBtn.classList.contains('active')) {
+                    previewContent.style.background = bgColor1.value;
+                } else {
+                    previewContent.style.background = `linear-gradient(45deg, ${bgColor1.value}, ${bgColor2.value})`;
+                }
+            }
+
+            bgColor1.addEventListener('input', updateBackground);
+            bgColor2.addEventListener('input', updateBackground);
+
+            // Alternar entre sólido e gradiente
+            solidBtn.addEventListener('click', function() {
+                solidBtn.classList.add('active');
+                gradientBtn.classList.remove('active');
+                bgColor2.classList.add('hidden');
+                updateBackground();
+            });
+
+            gradientBtn.addEventListener('click', function() {
+                gradientBtn.classList.add('active');
+                solidBtn.classList.remove('active');
+                bgColor2.classList.remove('hidden');
+                updateBackground();
+            });
+
+            // Atualização da fonte
+            const fontSelect = document.getElementById('fontFamily');
+            fontSelect.addEventListener('change', function() {
+                previewContent.style.fontFamily = this.value;
+            });
+
+            // Atualização da cor do texto
+            const textColor = document.getElementById('textColor');
+            textColor.addEventListener('input', function() {
+                previewContent.style.color = this.value;
+            });
+
+            // Inicializar o preview
+            updateBackground();
+        });
+    </script>
+</body>
+</html> 

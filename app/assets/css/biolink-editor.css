@@ -1,0 +1,336 @@
+/* Layout do Editor */
+.editor-container {
+    display: grid;
+    grid-template-columns: 600px 1fr;
+    gap: 2rem;
+    padding: 1rem;
+    height: calc(100vh - var(--header-height) - 2rem);
+    overflow: hidden;
+}
+
+/* Painel de Edição */
+.editor-panel {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.editor-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-button {
+    flex: 1;
+    padding: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tab-button.active {
+    color: var(--text-color);
+    background-color: rgba(86, 249, 130, 0.1);
+}
+
+.editor-content {
+    padding: 1.5rem;
+    overflow-y: auto;
+    height: calc(100% - 48px);
+}
+
+/* Seções do Editor */
+.editor-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-section h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+/* Campo de URL */
+.url-field {
+    display: flex;
+    align-items: center;
+    background-color: var(--darker-bg);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.url-prefix {
+    padding: 0.75rem 1rem;
+    color: var(--text-muted);
+    background-color: rgba(0, 0, 0, 0.2);
+    font-family: monospace;
+}
+
+#biolink-url {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-family: monospace;
+}
+
+.url-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.url-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background-color: rgba(86, 249, 130, 0.1);
+    color: var(--text-color);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+.url-button:hover {
+    background-color: rgba(86, 249, 130, 0.2);
+}
+
+.url-button.active {
+    background-color: var(--primary-color);
+    color: var(--darker-bg);
+}
+
+.url-button.stats {
+    background-color: var(--darker-bg);
+}
+
+.url-button.stats:hover {
+    background-color: var(--dark-bg);
+    border-color: var(--primary-color);
+}
+
+.url-button i {
+    font-size: 1rem;
+}
+
+/* Opções de Customização */
+.customization-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.option-group label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.background-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.bg-option {
+    flex: 1;
+    padding: 0.5rem;
+    background-color: var(--darker-bg);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bg-option.active {
+    border-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.color-picker {
+    display: flex;
+    gap: 0.5rem;
+}
+
+input[type="color"] {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+select {
+    padding: 0.75rem;
+    background-color: var(--darker-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Botões de Ação */
+.editor-actions {
+    margin-top: 2rem;
+}
+
+.save-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--darker-bg);
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-button:hover {
+    background-color: #3ed66b;
+    transform: translateY(-2px);
+}
+
+/* Preview do Smartphone */
+.preview-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.smartphone-wrapper {
+    position: relative;
+    width: 300px;
+    height: 600px;
+}
+
+.smartphone {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    border-radius: 40px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.smartphone::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 20px;
+    background-color: var(--darker-bg);
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.smartphone-screen {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background-color: var(--dark-bg);
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.preview-content {
+    height: 100%;
+    padding: 20px;
+    background: linear-gradient(45deg, #9C27B0, #3F51B5);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.bio-header {
+    text-align: center;
+    padding: 1rem;
+}
+
+.bio-content {
+    flex: 1;
+}
+
+.bio-footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+}
+
+.bio-footer h1 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* Responsividade */
+@media (max-width: 1400px) {
+    .editor-container {
+        grid-template-columns: 550px 1fr;
+    }
+}
+
+@media (max-width: 1200px) {
+    .editor-container {
+        grid-template-columns: 500px 1fr;
+    }
+    
+    .smartphone-wrapper {
+        width: 280px;
+        height: 560px;
+    }
+}
+
+@media (max-width: 992px) {
+    .editor-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        height: auto;
+    }
+
+    .smartphone-wrapper {
+        width: 260px;
+        height: 520px;
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-container {
+        padding: 0.5rem;
+    }
+
+    .smartphone-wrapper {
+        width: 240px;
+        height: 480px;
+    }
+} 
