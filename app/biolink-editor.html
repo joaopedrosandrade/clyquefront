@@ -236,6 +236,32 @@
                 previewContent.style.color = this.value;
             });
 
+            // Função para verificar se a cor é clara
+            function isLightColor(color) {
+                const r = parseInt(color.substr(1, 2), 16);
+                const g = parseInt(color.substr(3, 2), 16);
+                const b = parseInt(color.substr(5, 2), 16);
+                // Fórmula para determinar se a cor é clara
+                return (r * 0.299 + g * 0.587 + b * 0.114) > 186;
+            }
+
+            // Atualizar imagem do rodapé com base na cor de fundo
+            function updateFooterImage() {
+                const footerImage = document.querySelector('.bio-footer img');
+                if (isLightColor(bgColor1.value)) {
+                    footerImage.src = 'assets/img/clyque.png';
+                } else {
+                    footerImage.src = 'assets/img/clyque2.png';
+                }
+            }
+
+            // Adicionar evento para atualizar a imagem ao mudar a cor
+            bgColor1.addEventListener('input', updateFooterImage);
+            bgColor2.addEventListener('input', updateFooterImage);
+
+            // Inicializar a imagem do rodapé
+            updateFooterImage();
+
             // Inicializar o preview
             updateBackground();
         });
