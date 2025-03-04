@@ -227,13 +227,15 @@
 
         .bio-link-wrapper:hover .block-controls,
         .bio-image-wrapper:hover .block-controls,
-        .bio-text-wrapper:hover .block-controls {
+        .bio-text-wrapper:hover .block-controls,
+        .bio-social-wrapper:hover .block-controls {
             opacity: 1;
         }
 
         .bio-link-wrapper,
         .bio-image-wrapper,
-        .bio-text-wrapper {
+        .bio-text-wrapper,
+        .bio-social-wrapper {
             position: relative;
             margin: 0;
             padding-bottom: 2px;
@@ -350,7 +352,8 @@
 
         .bio-link-wrapper:hover .drag-handle,
         .bio-image-wrapper:hover .drag-handle,
-        .bio-text-wrapper:hover .drag-handle {
+        .bio-text-wrapper:hover .drag-handle,
+        .bio-social-wrapper:hover .drag-handle {
             opacity: 1;
         }
 
@@ -517,11 +520,13 @@
             color: white;
             font-size: 20px;
             transition: all 0.2s ease;
+            text-decoration: none;
         }
 
         .social-icon:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            text-decoration: none;
         }
 
         .social-icon.rounded {
@@ -595,6 +600,44 @@
             background-color: #e8eaff;
             transform: scale(1.1);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos para ícones sociais */
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            color: white;
+            font-size: 20px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+        
+        /* Remover sublinhado de todos os links de redes sociais */
+        .bio-social a, 
+        .bio-social-wrapper a {
+            text-decoration: none;
+        }
+        
+        .bio-social a:hover, 
+        .bio-social-wrapper a:hover {
+            text-decoration: none;
+        }
+        
+        /* Garantir que os ícones na lista de seleção não tenham sublinhado */
+        .social-network-item i {
+            margin-right: 10px;
+            font-size: 18px;
+            text-decoration: none;
         }
     </style>
     <!-- Font Awesome para ícones -->
@@ -2291,6 +2334,12 @@
                             
                             // Reaplicar a funcionalidade de arrastar e soltar após a edição
                             makeDraggable(currentEditingElement);
+                            
+                            // Verificar se os controles de edição existem, se não, adicioná-los
+                            if (!currentEditingElement.querySelector('.block-controls')) {
+                                const controls = createBlockControls(currentEditingElement, 'social', socialData);
+                                currentEditingElement.appendChild(controls);
+                            }
                         }
                         
                         // Resetar o estado de edição
