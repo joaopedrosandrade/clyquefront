@@ -55,6 +55,28 @@
             </div>
         </header>
 
+        <!-- Seção de URL -->
+        <section class="url-section">
+            <div class="editor-section">
+                <h3>URL Curto <i id="statusIcon" class="fas fa-circle" style="color: var(--primary-color);"></i></h3>
+                <div class="url-field">
+                    <div class="url-prefix">https://clyque.bio/</div>
+                    <input type="text" value="zlict6ikaq" id="biolink-url">
+                </div>
+                <div class="url-actions">
+                    <button class="url-button active" id="toggleButton">
+                        <i class="fas fa-toggle-on"></i> Ativo
+                    </button>
+                    <button class="url-button" id="copyButton">
+                        <i class="fas fa-copy"></i> Copiar URL
+                    </button>
+                    <button class="url-button stats">
+                        <i class="fas fa-chart-line"></i> Análises
+                    </button>
+                </div>
+            </div>
+        </section>
+
         <div class="editor-container">
             <!-- Painel de Edição -->
             <section class="editor-panel">
@@ -64,26 +86,6 @@
                 </div>
 
                 <div class="editor-content">
-                    <!-- Seção de URL -->
-                    <div class="editor-section">
-                        <h3>URL Curto <i id="statusIcon" class="fas fa-circle" style="color: var(--primary-color);"></i></h3>
-                        <div class="url-field">
-                            <div class="url-prefix">https://clyque.bio/</div>
-                            <input type="text" value="zlict6ikaq" id="biolink-url">
-                        </div>
-                        <div class="url-actions">
-                            <button class="url-button active" id="toggleButton">
-                                <i class="fas fa-toggle-on"></i> Ativo
-                            </button>
-                            <button class="url-button" id="copyButton">
-                                <i class="fas fa-copy"></i> Copiar URL
-                            </button>
-                            <button class="url-button stats">
-                                <i class="fas fa-chart-line"></i> Análises
-                            </button>
-                        </div>
-                    </div>
-
                     <!-- Seção de Customização -->
                     <div class="editor-section">
                         <h3>Customização</h3>
@@ -113,6 +115,20 @@
                                 <label>Cor do Texto</label>
                                 <input type="color" id="textColor" value="#FFFFFF">
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção de Blocos -->
+                    <div class="editor-section">
+                        <h3>Blocos</h3>
+                        <div class="blocks-container">
+                            <button class="block-button"><i class="fas fa-link"></i> Link</button>
+                            <button class="block-button"><i class="fas fa-image"></i> Imagem</button>
+                            <button class="block-button"><i class="fas fa-font"></i> Texto</button>
+                            <button class="block-button"><i class="fas fa-share-alt"></i> Redes Sociais</button>
+                            <button class="block-button"><i class="fab fa-spotify"></i> Spotify</button>
+                            <button class="block-button"><i class="fab fa-youtube"></i> Youtube</button>
+                            <!-- Adicione mais botões conforme necessário -->
                         </div>
                     </div>
 
@@ -264,6 +280,28 @@
 
             // Inicializar o preview
             updateBackground();
+
+            // Alternar entre abas
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const sections = document.querySelectorAll('.editor-section');
+
+            tabButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    sections.forEach((section, secIndex) => {
+                        if (secIndex === 2) {
+                            section.style.display = index === 1 ? 'block' : 'none';
+                        } else {
+                            section.style.display = index === 0 ? 'block' : 'none';
+                        }
+                    });
+
+                    button.classList.add('active');
+                });
+            });
+
+            // Inicializar a primeira aba como ativa
+            sections[2].style.display = 'none';
         });
     </script>
 </body>

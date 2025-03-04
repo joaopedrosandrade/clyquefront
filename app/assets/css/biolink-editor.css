@@ -343,4 +343,35 @@ select {
     .url-button {
         margin-bottom: 0.5rem;
     }
+}
+
+.blocks-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.block-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--darker-bg);
+    color: var(--text-color);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.block-button:hover {
+    background-color: var(--dark-bg);
+    border-color: var(--primary-color);
+}
+
+.block-button i {
+    font-size: 1rem;
 } 
