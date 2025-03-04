@@ -45,6 +45,7 @@
     <!-- Conteúdo Principal -->
     <main class="main-content">
         <header class="top-bar">
+            <a href="bio-links-list.html" class="back-arrow" style="color: inherit;"><i class="fas fa-arrow-left"></i></a>
             <h1>Editor Bio Link</h1>
             <div class="user-info">
                 <span class="user-name">Olá, Usuário</span>
@@ -81,13 +82,13 @@
             <!-- Painel de Edição -->
             <section class="editor-panel">
                 <div class="editor-tabs">
-                    <button class="tab-button active">Customização</button>
-                    <button class="tab-button">Blocos</button>
+                    <button class="tab-button active" id="customizationTab">Customização</button>
+                    <button class="tab-button" id="blocksTab">Blocos</button>
                 </div>
 
                 <div class="editor-content">
                     <!-- Seção de Customização -->
-                    <div class="editor-section">
+                    <div class="editor-section" id="customizationSection">
                         <h3>Customização</h3>
                         <div class="customization-options">
                             <div class="option-group">
@@ -119,7 +120,7 @@
                     </div>
 
                     <!-- Seção de Blocos -->
-                    <div class="editor-section">
+                    <div class="editor-section" id="blocksSection">
                         <h3>Blocos</h3>
                         <div class="blocks-container">
                             <button class="block-button"><i class="fas fa-link"></i> Link</button>
@@ -282,26 +283,28 @@
             updateBackground();
 
             // Alternar entre abas
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const sections = document.querySelectorAll('.editor-section');
+            const customizationTab = document.getElementById('customizationTab');
+            const blocksTab = document.getElementById('blocksTab');
+            const customizationSection = document.getElementById('customizationSection');
+            const blocksSection = document.getElementById('blocksSection');
 
-            tabButtons.forEach((button, index) => {
-                button.addEventListener('click', () => {
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    sections.forEach((section, secIndex) => {
-                        if (secIndex === 2) {
-                            section.style.display = index === 1 ? 'block' : 'none';
-                        } else {
-                            section.style.display = index === 0 ? 'block' : 'none';
-                        }
-                    });
-
-                    button.classList.add('active');
-                });
+            customizationTab.addEventListener('click', () => {
+                customizationTab.classList.add('active');
+                blocksTab.classList.remove('active');
+                customizationSection.style.display = 'block';
+                blocksSection.style.display = 'none';
             });
 
-            // Inicializar a primeira aba como ativa
-            sections[2].style.display = 'none';
+            blocksTab.addEventListener('click', () => {
+                blocksTab.classList.add('active');
+                customizationTab.classList.remove('active');
+                blocksSection.style.display = 'block';
+                customizationSection.style.display = 'none';
+            });
+
+            // Initialize the sections
+            customizationSection.style.display = 'block';
+            blocksSection.style.display = 'none';
         });
     </script>
 </body>
