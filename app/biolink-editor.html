@@ -357,6 +357,245 @@
         .dragging .drag-handle {
             cursor: grabbing;
         }
+
+        /* Estilos para o modal de redes sociais */
+        .social-networks-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+
+        .social-network-item {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            grid-template-rows: auto auto;
+            gap: 8px 12px;
+            padding: 12px;
+            border-radius: 6px;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            border-left: 3px solid #ddd;
+            align-items: center;
+        }
+
+        .social-network-item:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            background-color: #f9f9f9;
+            border-left-color: var(--primary-color, #3F51B5);
+        }
+
+        /* Estilo personalizado para os checkboxes */
+        .social-network-item input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #bbb;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            background-color: #f5f5f5;
+            margin: 0;
+            grid-column: 1;
+            grid-row: 1;
+            justify-self: center;
+        }
+
+        .social-network-item input[type="checkbox"]:checked {
+            background-color: var(--primary-color, #3F51B5);
+            border-color: var(--primary-color, #3F51B5);
+        }
+
+        .social-network-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .social-network-item input[type="checkbox"]:hover {
+            border-color: var(--primary-color, #3F51B5);
+        }
+
+        .social-network-item .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            grid-column: 3;
+            grid-row: 1;
+            font-weight: 500;
+            cursor: pointer;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .social-network-item:hover .checkbox-label {
+            color: var(--primary-color, #3F51B5);
+        }
+
+        .social-network-item i {
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            grid-column: 2;
+            grid-row: 1;
+            justify-self: center;
+        }
+        
+        /* Estilo para os ícones das redes sociais */
+        .social-network-item .fab.fa-instagram { color: #E1306C; }
+        .social-network-item .fab.fa-facebook { color: #1877F2; }
+        .social-network-item .fab.fa-twitter { color: #1DA1F2; }
+        .social-network-item .fab.fa-youtube { color: #FF0000; }
+        .social-network-item .fab.fa-tiktok { color: #000000; }
+        .social-network-item .fab.fa-linkedin { color: #0A66C2; }
+        .social-network-item .fab.fa-whatsapp { color: #25D366; }
+        .social-network-item .fab.fa-telegram { color: #0088cc; }
+
+        .social-url {
+            grid-column: 1 / 4;
+            grid-row: 2;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            width: 100%;
+            display: none;
+            transition: all 0.2s ease;
+        }
+
+        .social-url:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+        }
+
+        .social-preview {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px dashed #ddd;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+            min-height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .social-icons-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            color: white;
+            font-size: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .social-icon.rounded {
+            border-radius: 8px;
+        }
+
+        .social-icon.square {
+            border-radius: 2px;
+        }
+
+        .social-icon.circle {
+            border-radius: 50%;
+        }
+
+        .social-icon.small {
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+        }
+
+        .social-icon.medium {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+        }
+
+        .social-icon.large {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+        }
+
+        /* Cores das redes sociais */
+        .social-icon.instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .social-icon.facebook { background-color: #1877F2; }
+        .social-icon.twitter { background-color: #1DA1F2; }
+        .social-icon.youtube { background-color: #FF0000; }
+        .social-icon.tiktok { background-color: #000000; }
+        .social-icon.linkedin { background-color: #0A66C2; }
+        .social-icon.whatsapp { background-color: #25D366; }
+        .social-icon.telegram { background-color: #0088cc; }
+
+        /* Estilos para o bloco de redes sociais no preview */
+        .bio-social-wrapper {
+            margin: 10px 0;
+        }
+
+        .bio-social {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .social-network-item input[type="checkbox"]:checked ~ .social-url {
+            display: block;
+        }
+
+        /* Estilo para itens com checkbox marcado */
+        .social-network-item input[type="checkbox"]:checked ~ .checkbox-label {
+            color: var(--primary-color, #3F51B5);
+            font-weight: 600;
+        }
+        
+        .social-network-item input[type="checkbox"]:checked + i {
+            background-color: #e8eaff;
+            transform: scale(1.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
     </style>
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -654,6 +893,114 @@
                         <label>Prévia do Texto</label>
                         <div class="text-preview" id="textPreview">
                             <p>Prévia do texto com o estilo selecionado</p>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-button">Cancelar</button>
+                        <button type="submit" class="save-button">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para Redes Sociais -->
+        <div class="modal" id="socialModal">
+            <div class="modal-header">
+                <h3>Adicionar Redes Sociais</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="socialForm">
+                    <div class="form-group">
+                        <label>Selecione as redes sociais que deseja adicionar</label>
+                        <div class="social-networks-container">
+                            <div class="social-network-item">
+                                <input type="checkbox" id="instagram" name="socialNetworks" value="instagram">
+                                <i class="fab fa-instagram"></i>
+                                <label for="instagram" class="checkbox-label">Instagram</label>
+                                <input type="url" id="instagramUrl" placeholder="https://instagram.com/seu_perfil" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="facebook" name="socialNetworks" value="facebook">
+                                <i class="fab fa-facebook"></i>
+                                <label for="facebook" class="checkbox-label">Facebook</label>
+                                <input type="url" id="facebookUrl" placeholder="https://facebook.com/seu_perfil" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="twitter" name="socialNetworks" value="twitter">
+                                <i class="fab fa-twitter"></i>
+                                <label for="twitter" class="checkbox-label">Twitter</label>
+                                <input type="url" id="twitterUrl" placeholder="https://twitter.com/seu_perfil" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="youtube" name="socialNetworks" value="youtube">
+                                <i class="fab fa-youtube"></i>
+                                <label for="youtube" class="checkbox-label">YouTube</label>
+                                <input type="url" id="youtubeUrl" placeholder="https://youtube.com/c/seu_canal" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="tiktok" name="socialNetworks" value="tiktok">
+                                <i class="fab fa-tiktok"></i>
+                                <label for="tiktok" class="checkbox-label">TikTok</label>
+                                <input type="url" id="tiktokUrl" placeholder="https://tiktok.com/@seu_perfil" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="linkedin" name="socialNetworks" value="linkedin">
+                                <i class="fab fa-linkedin"></i>
+                                <label for="linkedin" class="checkbox-label">LinkedIn</label>
+                                <input type="url" id="linkedinUrl" placeholder="https://linkedin.com/in/seu_perfil" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="whatsapp" name="socialNetworks" value="whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                                <label for="whatsapp" class="checkbox-label">WhatsApp</label>
+                                <input type="url" id="whatsappUrl" placeholder="https://wa.me/5500000000000" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="telegram" name="socialNetworks" value="telegram">
+                                <i class="fab fa-telegram"></i>
+                                <label for="telegram" class="checkbox-label">Telegram</label>
+                                <input type="url" id="telegramUrl" placeholder="https://t.me/seu_perfil" class="social-url">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-options">
+                        <div class="form-group">
+                            <label for="socialStyle">Estilo dos Ícones</label>
+                            <select id="socialStyle">
+                                <option value="rounded" selected>Arredondado</option>
+                                <option value="square">Quadrado</option>
+                                <option value="circle">Circular</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="socialSize">Tamanho dos Ícones</label>
+                            <select id="socialSize">
+                                <option value="small">Pequeno</option>
+                                <option value="medium" selected>Médio</option>
+                                <option value="large">Grande</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="socialColor">Cor dos Ícones</label>
+                            <select id="socialColor">
+                                <option value="brand" selected>Cores originais</option>
+                                <option value="custom">Personalizada</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="customSocialColor">Cor Personalizada</label>
+                            <input type="color" id="customSocialColor" value="#673AB7" class="hidden">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Prévia das Redes Sociais</label>
+                        <div class="social-preview" id="socialPreview">
+                            <div class="social-icons-preview">
+                                <!-- Ícones de prévia serão adicionados aqui via JavaScript -->
+                            </div>
                         </div>
                     </div>
                     <div class="form-actions">
@@ -1015,6 +1362,51 @@
                     
                     // Abrir o modal
                     openModal('textModal');
+                } else if (blockType === 'social') {
+                    // Limpar o formulário antes de preencher com os dados existentes
+                    if (socialForm) socialForm.reset();
+                    
+                    // Preencher o formulário com os dados existentes
+                    if (socialStyle) socialStyle.value = blockData.style || 'rounded';
+                    if (socialSize) socialSize.value = blockData.size || 'medium';
+                    if (socialColor) socialColor.value = blockData.colorType || 'brand';
+                    
+                    if (customSocialColor) {
+                        customSocialColor.value = blockData.customColor || '#673AB7';
+                        if (blockData.colorType === 'custom') {
+                            customSocialColor.classList.remove('hidden');
+                        } else {
+                            customSocialColor.classList.add('hidden');
+                        }
+                    }
+                    
+                    // Marcar os checkboxes e preencher URLs para as redes sociais existentes
+                    if (blockData.networks && blockData.networks.length > 0) {
+                        blockData.networks.forEach(network => {
+                            const checkbox = document.getElementById(network.type);
+                            const urlInput = document.getElementById(network.type + 'Url');
+                            
+                            if (checkbox) {
+                                checkbox.checked = true;
+                            }
+                            
+                            if (urlInput) {
+                                urlInput.value = network.url || '';
+                                urlInput.style.display = 'block';
+                                urlInput.required = true;
+                            }
+                        });
+                    }
+                    
+                    // Atualizar a prévia
+                    setTimeout(updateSocialPreview, 100);
+                    
+                    // Mudar o texto do botão para "Atualizar"
+                    const saveButton = document.querySelector('#socialModal .save-button');
+                    if (saveButton) saveButton.textContent = 'Atualizar';
+                    
+                    // Abrir o modal
+                    openModal('socialModal');
                 } else if (blockType === 'image') {
                     // Para imagens, apenas abrimos o modal de imagem
                     // Não é possível editar a imagem existente, apenas substituí-la
@@ -1134,8 +1526,28 @@
                         
                         openModal('textModal');
                     } else if (blockType.includes('redes sociais')) {
-                        // Implementar modal de redes sociais
-                        alert('Modal de Redes Sociais será implementado em breve!');
+                        // Limpar o formulário antes de abrir o modal
+                        if (socialForm) socialForm.reset();
+                        
+                        // Esconder todos os campos de URL
+                        document.querySelectorAll('.social-url').forEach(input => {
+                            input.style.display = 'none';
+                            input.required = false;
+                        });
+                        
+                        // Resetar os valores padrão
+                        if (socialStyle) socialStyle.value = 'rounded';
+                        if (socialSize) socialSize.value = 'medium';
+                        if (socialColor) socialColor.value = 'brand';
+                        if (customSocialColor) {
+                            customSocialColor.value = '#673AB7';
+                            customSocialColor.classList.add('hidden');
+                        }
+                        
+                        // Atualizar a prévia
+                        setTimeout(updateSocialPreview, 100);
+                        
+                        openModal('socialModal');
                     } else if (blockType.includes('spotify')) {
                         // Implementar modal de Spotify
                         alert('Modal de Spotify será implementado em breve!');
@@ -1679,7 +2091,7 @@
 
             // Função para encontrar o elemento mais próximo do cursor
             function findClosestElement(y) {
-                const blockElements = bioContent.querySelectorAll('.bio-link-wrapper, .bio-image-wrapper, .bio-text-wrapper');
+                const blockElements = bioContent.querySelectorAll('.bio-link-wrapper, .bio-image-wrapper, .bio-text-wrapper, .bio-social-wrapper');
                 let closest = null;
                 let closestDistance = Infinity;
                 
@@ -1702,9 +2114,284 @@
             }
             
             // Tornar os blocos existentes arrastáveis
-            document.querySelectorAll('.bio-link-wrapper, .bio-image-wrapper, .bio-text-wrapper').forEach(element => {
+            document.querySelectorAll('.bio-link-wrapper, .bio-image-wrapper, .bio-text-wrapper, .bio-social-wrapper').forEach(element => {
                 addDragHandle(element);
                 makeDraggable(element);
+            });
+
+            // Funcionalidade para o modal de redes sociais
+            const socialForm = document.getElementById('socialForm');
+            const socialStyle = document.getElementById('socialStyle');
+            const socialSize = document.getElementById('socialSize');
+            const socialColor = document.getElementById('socialColor');
+            const customSocialColor = document.getElementById('customSocialColor');
+            const socialPreview = document.getElementById('socialPreview');
+            const socialIconsPreview = socialPreview ? socialPreview.querySelector('.social-icons-preview') : null;
+            
+            // Objeto com informações das redes sociais
+            const socialNetworks = {
+                instagram: { name: 'Instagram', icon: 'fa-instagram', color: 'linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D)' },
+                facebook: { name: 'Facebook', icon: 'fa-facebook', color: '#1877F2' },
+                twitter: { name: 'Twitter', icon: 'fa-twitter', color: '#1DA1F2' },
+                youtube: { name: 'YouTube', icon: 'fa-youtube', color: '#FF0000' },
+                tiktok: { name: 'TikTok', icon: 'fa-tiktok', color: '#000000' },
+                linkedin: { name: 'LinkedIn', icon: 'fa-linkedin', color: '#0A66C2' },
+                whatsapp: { name: 'WhatsApp', icon: 'fa-whatsapp', color: '#25D366' },
+                telegram: { name: 'Telegram', icon: 'fa-telegram', color: '#0088cc' }
+            };
+            
+            // Mostrar/esconder campo de URL quando checkbox é clicado
+            document.querySelectorAll('.social-network-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const urlInput = document.getElementById(this.value + 'Url');
+                    if (urlInput) {
+                        if (this.checked) {
+                            urlInput.style.display = 'block';
+                            urlInput.required = true;
+                        } else {
+                            urlInput.style.display = 'none';
+                            urlInput.required = false;
+                            urlInput.value = '';
+                        }
+                    }
+                    updateSocialPreview();
+                });
+            });
+            
+            // Atualizar prévia quando mudar estilo, tamanho ou cor
+            if (socialStyle) {
+                socialStyle.addEventListener('change', updateSocialPreview);
+            }
+            
+            if (socialSize) {
+                socialSize.addEventListener('change', updateSocialPreview);
+            }
+            
+            if (socialColor) {
+                socialColor.addEventListener('change', function() {
+                    if (this.value === 'custom') {
+                        customSocialColor.classList.remove('hidden');
+                    } else {
+                        customSocialColor.classList.add('hidden');
+                    }
+                    updateSocialPreview();
+                });
+            }
+            
+            if (customSocialColor) {
+                customSocialColor.addEventListener('input', updateSocialPreview);
+            }
+            
+            // Função para atualizar a prévia das redes sociais
+            function updateSocialPreview() {
+                if (!socialIconsPreview) return;
+                
+                // Limpar prévia atual
+                socialIconsPreview.innerHTML = '';
+                
+                // Obter valores selecionados
+                const style = socialStyle ? socialStyle.value : 'rounded';
+                const size = socialSize ? socialSize.value : 'medium';
+                const colorType = socialColor ? socialColor.value : 'brand';
+                const customColor = customSocialColor ? customSocialColor.value : '#673AB7';
+                
+                // Adicionar ícones para cada rede social selecionada
+                document.querySelectorAll('.social-network-item input[type="checkbox"]:checked').forEach(checkbox => {
+                    const network = checkbox.value;
+                    if (socialNetworks[network]) {
+                        const icon = document.createElement('a');
+                        icon.href = '#';
+                        icon.className = `social-icon ${network} ${style} ${size}`;
+                        icon.innerHTML = `<i class="fab ${socialNetworks[network].icon}"></i>`;
+                        
+                        // Aplicar cor personalizada se selecionada
+                        if (colorType === 'custom') {
+                            icon.style.background = customColor;
+                        }
+                        
+                        socialIconsPreview.appendChild(icon);
+                    }
+                });
+                
+                // Mostrar mensagem se nenhuma rede social selecionada
+                if (socialIconsPreview.children.length === 0) {
+                    socialIconsPreview.innerHTML = '<p style="color: #666; font-style: italic;">Selecione pelo menos uma rede social</p>';
+                }
+            }
+            
+            // Submissão do formulário de redes sociais
+            if (socialForm) {
+                socialForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Verificar se pelo menos uma rede social foi selecionada
+                    const selectedNetworks = document.querySelectorAll('.social-network-item input[type="checkbox"]:checked');
+                    if (selectedNetworks.length === 0) {
+                        alert('Selecione pelo menos uma rede social.');
+                        return;
+                    }
+                    
+                    // Verificar se todos os URLs foram preenchidos
+                    let allUrlsFilled = true;
+                    selectedNetworks.forEach(checkbox => {
+                        const urlInput = document.getElementById(checkbox.value + 'Url');
+                        if (urlInput && !urlInput.value) {
+                            allUrlsFilled = false;
+                        }
+                    });
+                    
+                    if (!allUrlsFilled) {
+                        alert('Preencha todos os URLs das redes sociais selecionadas.');
+                        return;
+                    }
+                    
+                    // Obter valores selecionados
+                    const style = socialStyle.value;
+                    const size = socialSize.value;
+                    const colorType = socialColor.value;
+                    const customColor = customSocialColor.value;
+                    
+                    // Criar dados para o bloco
+                    const socialData = {
+                        networks: [],
+                        style: style,
+                        size: size,
+                        colorType: colorType,
+                        customColor: customColor
+                    };
+                    
+                    // Adicionar dados de cada rede social selecionada
+                    selectedNetworks.forEach(checkbox => {
+                        const network = checkbox.value;
+                        const url = document.getElementById(network + 'Url').value;
+                        socialData.networks.push({
+                            type: network,
+                            url: url
+                        });
+                    });
+                    
+                    // Se estiver editando, atualizar o bloco existente
+                    if (isEditing && currentEditingElement) {
+                        console.log('Atualizando bloco de redes sociais existente');
+                        
+                        // Atualizar o bloco existente
+                        const socialContainer = currentEditingElement.querySelector('.bio-social');
+                        if (socialContainer) {
+                            // Limpar o conteúdo atual
+                            socialContainer.innerHTML = '';
+                            
+                            // Adicionar os novos ícones
+                            socialData.networks.forEach(network => {
+                                const icon = createSocialIcon(network.type, network.url, socialData);
+                                socialContainer.appendChild(icon);
+                            });
+                            
+                            // Atualizar os dados do bloco
+                            currentEditingElement._blockData = socialData;
+                            
+                            // Reaplicar a funcionalidade de arrastar e soltar após a edição
+                            makeDraggable(currentEditingElement);
+                        }
+                        
+                        // Resetar o estado de edição
+                        isEditing = false;
+                        currentEditingElement = null;
+                    } else {
+                        // Criar wrapper para as redes sociais
+                        const socialWrapper = document.createElement('div');
+                        socialWrapper.className = 'bio-social-wrapper';
+                        
+                        // Criar container para os ícones
+                        const socialContainer = document.createElement('div');
+                        socialContainer.className = 'bio-social';
+                        
+                        // Adicionar ícones para cada rede social
+                        socialData.networks.forEach(network => {
+                            const icon = createSocialIcon(network.type, network.url, socialData);
+                            socialContainer.appendChild(icon);
+                        });
+                        
+                        // Adicionar o container ao wrapper
+                        socialWrapper.appendChild(socialContainer);
+                        
+                        // Armazenar os dados no elemento para referência futura
+                        socialWrapper._blockData = socialData;
+                        
+                        // Adicionar controles de edição
+                        const controls = createBlockControls(socialWrapper, 'social', socialData);
+                        socialWrapper.appendChild(controls);
+                        
+                        // Adicionar alça de arrasto
+                        addDragHandle(socialWrapper);
+                        
+                        // Adicionar ao preview
+                        bioContent.appendChild(socialWrapper);
+                        
+                        // Tornar o elemento arrastável
+                        makeDraggable(socialWrapper);
+                    }
+                    
+                    // Limpar formulário e fechar modal
+                    this.reset();
+                    
+                    // Esconder todos os campos de URL
+                    document.querySelectorAll('.social-url').forEach(input => {
+                        input.style.display = 'none';
+                        input.required = false;
+                    });
+                    
+                    // Esconder o campo de cor personalizada
+                    customSocialColor.classList.add('hidden');
+                    
+                    // Limpar a prévia
+                    if (socialIconsPreview) {
+                        socialIconsPreview.innerHTML = '<p style="color: #666; font-style: italic;">Selecione pelo menos uma rede social</p>';
+                    }
+                    
+                    closeAllModals();
+                });
+            }
+            
+            // Função para criar um ícone de rede social
+            function createSocialIcon(type, url, data) {
+                const icon = document.createElement('a');
+                icon.href = url;
+                icon.target = '_blank';
+                icon.className = `social-icon ${type} ${data.style} ${data.size}`;
+                icon.innerHTML = `<i class="fab ${socialNetworks[type].icon}"></i>`;
+                
+                // Aplicar cor personalizada se selecionada
+                if (data.colorType === 'custom') {
+                    icon.style.background = data.customColor;
+                }
+                
+                return icon;
+            }
+            
+            // Atualizar a prévia de redes sociais quando o modal é aberto
+            document.querySelector('.block-button:nth-child(4)').addEventListener('click', function() {
+                // Resetar o formulário
+                if (socialForm) socialForm.reset();
+                
+                // Esconder todos os campos de URL
+                document.querySelectorAll('.social-url').forEach(input => {
+                    input.style.display = 'none';
+                    input.required = false;
+                });
+                
+                // Resetar os valores padrão
+                if (socialStyle) socialStyle.value = 'rounded';
+                if (socialSize) socialSize.value = 'medium';
+                if (socialColor) socialColor.value = 'brand';
+                if (customSocialColor) {
+                    customSocialColor.value = '#673AB7';
+                    customSocialColor.classList.add('hidden');
+                }
+                
+                // Atualizar a prévia
+                setTimeout(updateSocialPreview, 100);
+                
+                openModal('socialModal');
             });
         });
     </script>
