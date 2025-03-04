@@ -320,6 +320,43 @@
         .bio-content {
             padding: 2px 4px;
         }
+
+        /* Estilos para o arrastar e soltar */
+        .dragging {
+            opacity: 0.5;
+        }
+
+        .drop-indicator {
+            height: 2px;
+            background-color: #ff3b30;
+            margin: 0;
+            display: none;
+        }
+
+        .drag-handle {
+            cursor: grab;
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .bio-link-wrapper:hover .drag-handle,
+        .bio-image-wrapper:hover .drag-handle,
+        .bio-text-wrapper:hover .drag-handle {
+            opacity: 1;
+        }
+
+        .dragging .drag-handle {
+            cursor: grabbing;
+        }
     </style>
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -413,7 +450,7 @@
                                     <button class="bg-option gradient">Gradiente</button>
                                 </div>
                                 <div class="color-picker">
-                                    <input type="color" id="bgColor1" value="#9C27B0">
+                                    <input type="color" id="bgColor1" value="#ffffff">
                                     <input type="color" id="bgColor2" value="#3F51B5" class="hidden">
                                 </div>
                             </div>
@@ -425,11 +462,6 @@
                                     <option value="Roboto">Roboto</option>
                                     <option value="Poppins">Poppins</option>
                                 </select>
-                            </div>
-
-                            <div class="option-group">
-                                <label>Cor do Texto</label>
-                                <input type="color" id="textColor" value="#FFFFFF">
                             </div>
                         </div>
                     </div>
@@ -721,12 +753,6 @@
             const fontSelect = document.getElementById('fontFamily');
             fontSelect.addEventListener('change', function() {
                 previewContent.style.fontFamily = this.value;
-            });
-
-            // Atualização da cor do texto
-            const textColor = document.getElementById('textColor');
-            textColor.addEventListener('input', function() {
-                previewContent.style.color = this.value;
             });
 
             // Função para verificar se a cor é clara
@@ -1283,6 +1309,9 @@
                             blockData.backgroundColor = color;
                             blockData.textColor = textColor;
                         }
+                        
+                        // Reaplicar a funcionalidade de arrastar e soltar após a edição
+                        makeDraggable(currentEditingElement);
                     } else {
                         console.error('Elemento de link não encontrado no bloco atual');
                         console.log('currentEditingElement:', currentEditingElement);
@@ -1337,8 +1366,14 @@
                     const controls = createBlockControls(linkWrapper, 'link', blockData);
                     linkWrapper.appendChild(controls);
                     
+                    // Adicionar alça de arrasto
+                    addDragHandle(linkWrapper);
+                    
                     // Adicionar ao preview
                     bioContent.appendChild(linkWrapper);
+                    
+                    // Tornar o elemento arrastável
+                    makeDraggable(linkWrapper);
                 }
                 
                 // Limpar formulário e fechar modal
@@ -1394,8 +1429,14 @@
                         const controls = createBlockControls(imageWrapper, 'image', blockData);
                         imageWrapper.appendChild(controls);
                         
+                        // Adicionar alça de arrasto
+                        addDragHandle(imageWrapper);
+                        
                         // Adicionar ao preview
                         bioContent.appendChild(imageWrapper);
+                        
+                        // Tornar o elemento arrastável
+                        makeDraggable(imageWrapper);
                     };
                     reader.readAsDataURL(file);
                 }
@@ -1433,6 +1474,9 @@
                             blockData.align = align;
                             blockData.color = color;
                         }
+                        
+                        // Reaplicar a funcionalidade de arrastar e soltar após a edição
+                        makeDraggable(currentEditingElement);
                     } else {
                         console.error('Elemento de texto não encontrado no bloco atual');
                         console.log('currentEditingElement:', currentEditingElement);
@@ -1472,8 +1516,14 @@
                     const controls = createBlockControls(textWrapper, 'text', blockData);
                     textWrapper.appendChild(controls);
                     
+                    // Adicionar alça de arrasto
+                    addDragHandle(textWrapper);
+                    
                     // Adicionar ao preview
                     bioContent.appendChild(textWrapper);
+                    
+                    // Tornar o elemento arrastável
+                    makeDraggable(textWrapper);
                 }
                 
                 // Limpar formulário e fechar modal
@@ -1497,6 +1547,165 @@
                     console.error('Erro ao inicializar prévias:', error);
                 }
             }, 500);
+
+            // Implementação do sistema de arrastar e soltar
+            let draggedElement = null;
+            let dropIndicator = document.createElement('div');
+            dropIndicator.className = 'drop-indicator';
+            
+            // Função para adicionar alça de arrasto aos elementos
+            function addDragHandle(element) {
+                // Verificar se já existe uma alça de arrasto
+                if (element.querySelector('.drag-handle')) return;
+                
+                const dragHandle = document.createElement('div');
+                dragHandle.className = 'drag-handle';
+                dragHandle.innerHTML = '<i class="fas fa-grip-vertical"></i>';
+                element.appendChild(dragHandle);
+            }
+            
+            function makeDraggable(element) {
+                // Garantir que o elemento seja arrastável
+                element.setAttribute('draggable', 'true');
+                
+                // Remover eventos anteriores para evitar duplicação
+                element.removeEventListener('dragstart', handleDragStart);
+                element.removeEventListener('dragend', handleDragEnd);
+                
+                // Adicionar novos eventos
+                element.addEventListener('dragstart', handleDragStart);
+                element.addEventListener('dragend', handleDragEnd);
+                
+                return element;
+            }
+            
+            function handleDragStart(e) {
+                draggedElement = this;
+                this.classList.add('dragging');
+                
+                // Definir dados para a transferência
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.outerHTML);
+                
+                // Criar uma imagem fantasma personalizada
+                const ghostElement = this.cloneNode(true);
+                ghostElement.style.width = this.offsetWidth + 'px';
+                ghostElement.style.opacity = '0.5';
+                document.body.appendChild(ghostElement);
+                e.dataTransfer.setDragImage(ghostElement, 0, 0);
+                setTimeout(() => {
+                    document.body.removeChild(ghostElement);
+                }, 0);
+            }
+            
+            function handleDragEnd() {
+                this.classList.remove('dragging');
+                draggedElement = null;
+                
+                // Remover todos os indicadores de queda
+                document.querySelectorAll('.drop-indicator').forEach(indicator => {
+                    indicator.style.display = 'none';
+                });
+            }
+
+            // Configurar a área de conteúdo para aceitar soltar
+            bioContent.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                
+                // Encontrar o elemento mais próximo
+                const closestElement = findClosestElement(e.clientY);
+                
+                // Posicionar o indicador de queda
+                if (closestElement) {
+                    const rect = closestElement.getBoundingClientRect();
+                    const middle = rect.top + rect.height / 2;
+                    
+                    // Remover indicadores existentes
+                    document.querySelectorAll('.drop-indicator').forEach(indicator => {
+                        if (indicator !== dropIndicator) {
+                            indicator.remove();
+                        }
+                    });
+                    
+                    // Posicionar o indicador acima ou abaixo do elemento
+                    if (e.clientY < middle) {
+                        // Acima do elemento
+                        if (closestElement.previousElementSibling !== dropIndicator) {
+                            bioContent.insertBefore(dropIndicator, closestElement);
+                        }
+                    } else {
+                        // Abaixo do elemento
+                        if (closestElement.nextElementSibling !== dropIndicator) {
+                            bioContent.insertBefore(dropIndicator, closestElement.nextElementSibling);
+                        }
+                    }
+                    
+                    dropIndicator.style.display = 'block';
+                }
+            });
+            
+            bioContent.addEventListener('dragleave', function(e) {
+                // Verificar se o mouse saiu da área de conteúdo
+                const rect = bioContent.getBoundingClientRect();
+                if (
+                    e.clientX < rect.left ||
+                    e.clientX > rect.right ||
+                    e.clientY < rect.top ||
+                    e.clientY > rect.bottom
+                ) {
+                    dropIndicator.style.display = 'none';
+                }
+            });
+            
+            bioContent.addEventListener('drop', function(e) {
+                e.preventDefault();
+                
+                // Garantir que temos um elemento arrastado
+                if (!draggedElement) return;
+                
+                // Inserir o elemento na nova posição
+                if (dropIndicator.style.display === 'block') {
+                    bioContent.insertBefore(draggedElement, dropIndicator.nextSibling);
+                    
+                    // Reaplicar a funcionalidade de arrastar e soltar após o drop
+                    // para garantir que o elemento continue arrastável
+                    makeDraggable(draggedElement);
+                }
+                
+                // Esconder o indicador
+                dropIndicator.style.display = 'none';
+            });
+
+            // Função para encontrar o elemento mais próximo do cursor
+            function findClosestElement(y) {
+                const blockElements = bioContent.querySelectorAll('.bio-link-wrapper, .bio-image-wrapper, .bio-text-wrapper');
+                let closest = null;
+                let closestDistance = Infinity;
+                
+                blockElements.forEach(element => {
+                    if (element === draggedElement || element === dropIndicator) return;
+                    
+                    const rect = element.getBoundingClientRect();
+                    const distance = Math.min(
+                        Math.abs(y - rect.top),
+                        Math.abs(y - (rect.top + rect.height))
+                    );
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closest = element;
+                    }
+                });
+                
+                return closest;
+            }
+            
+            // Tornar os blocos existentes arrastáveis
+            document.querySelectorAll('.bio-link-wrapper, .bio-image-wrapper, .bio-text-wrapper').forEach(element => {
+                addDragHandle(element);
+                makeDraggable(element);
+            });
         });
     </script>
 </body>
