@@ -6,6 +6,305 @@
     <title>Editor Bio Link - Clyque.bio</title>
     <link rel="stylesheet" href="assets/css/dashboard.css">
     <link rel="stylesheet" href="assets/css/biolink-editor.css">
+    <!-- Estilos para os modais -->
+    <style>
+        /* Overlay do modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Estilo do modal */
+        .modal {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Cabeçalho do modal */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Corpo do modal */
+        .modal-body {
+            padding: 16px;
+        }
+
+        /* Estilos do formulário */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        /* Botões do formulário */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .cancel-button {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .save-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Preview de imagem */
+        .image-preview {
+            margin-top: 10px;
+            max-width: 100%;
+            height: 150px;
+            border: 1px dashed #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Preview de link */
+        .link-preview {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px dashed #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .preview-link {
+            display: inline-block;
+            background-color: #3F51B5;
+            color: white;
+            text-align: center;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            width: 80%;
+        }
+
+        /* Preview de texto */
+        .text-preview {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px dashed #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            min-height: 60px;
+        }
+
+        .text-preview p {
+            margin: 0;
+            color: #000000;
+            text-align: center;
+        }
+
+        /* Estilos para os blocos no preview */
+        .bio-link {
+            display: block;
+            background-color: #3F51B5;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+
+        .bio-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .bio-image {
+            width: 100%;
+            margin: 10px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bio-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .bio-text {
+            margin: 10px 0;
+            padding: 0 10px;
+        }
+
+        /* Estilos para os controles de edição dos blocos */
+        .block-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 5px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .bio-link-wrapper:hover .block-controls,
+        .bio-image-wrapper:hover .block-controls,
+        .bio-text-wrapper:hover .block-controls {
+            opacity: 1;
+        }
+
+        .bio-link-wrapper,
+        .bio-image-wrapper,
+        .bio-text-wrapper {
+            position: relative;
+            margin: 15px 0;
+            padding-bottom: 30px; /* Espaço para os botões de controle */
+        }
+
+        .edit-block,
+        .delete-block {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .edit-block {
+            color: #3F51B5;
+        }
+
+        .edit-block:hover {
+            background-color: #3F51B5;
+            color: white;
+            border-color: #3F51B5;
+        }
+
+        .delete-block {
+            color: #f44336;
+        }
+
+        .delete-block:hover {
+            background-color: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        /* Estilos para o seletor de emojis */
+        .emoji-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+            max-height: 120px;
+            overflow-y: auto;
+            padding: 8px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .emoji-button {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 36px;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emoji-button:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .emoji-help {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            margin-top: 4px;
+            font-style: italic;
+        }
+    </style>
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -149,6 +448,9 @@
                                 <div class="bio-header">
                                     <!-- Removido o h1 daqui -->
                                 </div>
+                                <div class="inactive-notification" id="inactiveNotification" style="display: none; background-color: #ff3b30; color: white; text-align: center; padding: 8px; font-size: 14px; font-weight: bold;">
+                                    Este link está inativo
+                                </div>
                                 <div class="bio-content">
                                     <!-- O conteúdo do preview será atualizado via JavaScript -->
                                 </div>
@@ -163,12 +465,168 @@
         </div>
     </main>
 
+    <!-- Modais para cadastro de blocos -->
+    <div class="modal-overlay" id="modalOverlay">
+        <!-- Modal para Link -->
+        <div class="modal" id="linkModal">
+            <div class="modal-header">
+                <h3>Adicionar Link</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="linkForm">
+                    <div class="form-group">
+                        <label for="linkTitle">Título</label>
+                        <input type="text" id="linkTitle" placeholder="Ex: Meu Website" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Adicionar Emoji</label>
+                        <div class="emoji-selector">
+                            <button type="button" class="emoji-button" data-emoji="😊">😊</button>
+                            <button type="button" class="emoji-button" data-emoji="👍">👍</button>
+                            <button type="button" class="emoji-button" data-emoji="❤️">❤️</button>
+                            <button type="button" class="emoji-button" data-emoji="🔥">🔥</button>
+                            <button type="button" class="emoji-button" data-emoji="⭐">⭐</button>
+                            <button type="button" class="emoji-button" data-emoji="🎉">🎉</button>
+                            <button type="button" class="emoji-button" data-emoji="📱">📱</button>
+                            <button type="button" class="emoji-button" data-emoji="💼">💼</button>
+                            <button type="button" class="emoji-button" data-emoji="📷">📷</button>
+                            <button type="button" class="emoji-button" data-emoji="🎵">🎵</button>
+                            <button type="button" class="emoji-button" data-emoji="📺">📺</button>
+                            <button type="button" class="emoji-button" data-emoji="🛒">🛒</button>
+                            <button type="button" class="emoji-button" data-emoji="💰">💰</button>
+                            <button type="button" class="emoji-button" data-emoji="🎮">🎮</button>
+                            <button type="button" class="emoji-button" data-emoji="🍔">🍔</button>
+                            <button type="button" class="emoji-button" data-emoji="🍕">🍕</button>
+                            <button type="button" class="emoji-button" data-emoji="🚀">🚀</button>
+                            <button type="button" class="emoji-button" data-emoji="✅">✅</button>
+                        </div>
+                        <small class="emoji-help">Clique em um emoji para adicioná-lo ao título do link. O emoji será inserido na posição atual do cursor.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkUrl">URL</label>
+                        <input type="url" id="linkUrl" placeholder="https://exemplo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkColor">Cor do Botão</label>
+                        <input type="color" id="linkColor" value="#3F51B5">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkTextColor">Cor do Texto</label>
+                        <input type="color" id="linkTextColor" value="#FFFFFF">
+                    </div>
+                    <div class="form-group">
+                        <label>Prévia do Botão</label>
+                        <div class="link-preview" id="linkPreview">
+                            <a href="#" class="preview-link">Prévia do Link</a>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-button">Cancelar</button>
+                        <button type="submit" class="save-button">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para Imagem -->
+        <div class="modal" id="imageModal">
+            <div class="modal-header">
+                <h3>Adicionar Imagem</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="imageForm">
+                    <div class="form-group">
+                        <label for="imageTitle">Título (opcional)</label>
+                        <input type="text" id="imageTitle" placeholder="Título da imagem">
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUpload">Selecionar Imagem</label>
+                        <input type="file" id="imageUpload" accept="image/*">
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-button">Cancelar</button>
+                        <button type="submit" class="save-button">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para Texto -->
+        <div class="modal" id="textModal">
+            <div class="modal-header">
+                <h3>Adicionar Texto</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="textForm">
+                    <div class="form-group">
+                        <label for="textContent">Conteúdo</label>
+                        <textarea id="textContent" rows="4" placeholder="Digite seu texto aqui..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Adicionar Emoji</label>
+                        <div class="emoji-selector">
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="😊">😊</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="👍">👍</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="❤️">❤️</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="🔥">🔥</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="⭐">⭐</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="🎉">🎉</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="📱">📱</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="💼">💼</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="📷">📷</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="🎵">🎵</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="📺">📺</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="🛒">🛒</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="💰">💰</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="🎮">🎮</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="🍔">🍔</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="🍕">🍕</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="🚀">🚀</button>
+                            <button type="button" class="emoji-button text-emoji-button" data-emoji="✅">✅</button>
+                        </div>
+                        <small class="emoji-help">Clique em um emoji para adicioná-lo ao seu texto. O emoji será inserido na posição atual do cursor.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="textAlign">Alinhamento</label>
+                        <select id="textAlign">
+                            <option value="left">Esquerda</option>
+                            <option value="center" selected>Centro</option>
+                            <option value="right">Direita</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="textColor">Cor do Texto</label>
+                        <input type="color" id="textColor" value="#000000">
+                    </div>
+                    <div class="form-group">
+                        <label>Prévia do Texto</label>
+                        <div class="text-preview" id="textPreview">
+                            <p>Prévia do texto com o estilo selecionado</p>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-button">Cancelar</button>
+                        <button type="submit" class="save-button">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Outros modais podem ser adicionados aqui -->
+    </div>
+
     <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Controle do botão de ativar/desativar
             const toggleButton = document.getElementById('toggleButton');
             const statusIcon = document.getElementById('statusIcon');
+            const inactiveNotification = document.getElementById('inactiveNotification');
+            
             toggleButton.addEventListener('click', function() {
                 const isActive = this.classList.contains('active');
                 if (isActive) {
@@ -176,11 +634,13 @@
                     this.innerHTML = '<i class="fas fa-toggle-off"></i> Inativo';
                     this.style.backgroundColor = 'red';
                     statusIcon.style.color = 'red';
+                    inactiveNotification.style.display = 'block'; // Mostrar a barra de notificação
                 } else {
                     this.classList.add('active');
                     this.innerHTML = '<i class="fas fa-toggle-on"></i> Ativo';
                     this.style.backgroundColor = 'var(--primary-color)';
                     statusIcon.style.color = 'var(--primary-color)';
+                    inactiveNotification.style.display = 'none'; // Esconder a barra de notificação
                 }
             });
 
@@ -305,6 +765,679 @@
             // Initialize the sections
             customizationSection.style.display = 'block';
             blocksSection.style.display = 'none';
+
+            // Controle dos modais
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modals = document.querySelectorAll('.modal');
+            const blockButtons = document.querySelectorAll('.block-button');
+            const closeButtons = document.querySelectorAll('.close-modal');
+            const cancelButtons = document.querySelectorAll('.cancel-button');
+            const bioContent = document.querySelector('.bio-content');
+            
+            // Adicionar uma variável para rastrear se estamos editando ou adicionando
+            let isEditing = false;
+            let currentEditingElement = null;
+
+            // Formulário de Link
+            const linkForm = document.getElementById('linkForm');
+            const linkTitle = document.getElementById('linkTitle');
+            const linkUrl = document.getElementById('linkUrl');
+            const linkColor = document.getElementById('linkColor');
+            const linkTextColor = document.getElementById('linkTextColor');
+            const linkPreviewContainer = document.getElementById('linkPreview');
+            let previewLink = linkPreviewContainer ? linkPreviewContainer.querySelector('.preview-link') : null;
+            
+            // Formulário de Texto
+            const textForm = document.getElementById('textForm');
+            const textContent = document.getElementById('textContent');
+            const textAlign = document.getElementById('textAlign');
+            const textColorInput = document.getElementById('textColor');
+            const textPreviewContainer = document.getElementById('textPreview');
+            let textPreview = textPreviewContainer ? textPreviewContainer.querySelector('p') : null;
+            
+            // Formulário de Imagem
+            const imageForm = document.getElementById('imageForm');
+            const imageUpload = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            
+            // Verificar e criar elementos de prévia se necessário
+            if (linkPreviewContainer && !previewLink) {
+                previewLink = document.createElement('a');
+                previewLink.href = '#';
+                previewLink.className = 'preview-link';
+                previewLink.textContent = 'Prévia do Link';
+                previewLink.style.backgroundColor = '#3F51B5';
+                previewLink.style.color = '#FFFFFF';
+                linkPreviewContainer.appendChild(previewLink);
+            }
+            
+            if (textPreviewContainer && !textPreview) {
+                textPreview = document.createElement('p');
+                textPreview.textContent = 'Prévia do texto com o estilo selecionado';
+                textPreview.style.textAlign = 'center';
+                textPreview.style.color = '#000000';
+                textPreviewContainer.appendChild(textPreview);
+            }
+            
+            // Função para atualizar prévia do link em tempo real
+            function updateLinkPreview() {
+                console.log('Atualizando prévia do link...');
+                
+                // Verificar novamente se temos o elemento de prévia
+                if (!previewLink && linkPreviewContainer) {
+                    previewLink = linkPreviewContainer.querySelector('.preview-link');
+                    if (!previewLink) {
+                        previewLink = document.createElement('a');
+                        previewLink.href = '#';
+                        previewLink.className = 'preview-link';
+                        previewLink.textContent = 'Prévia do Link';
+                        previewLink.style.backgroundColor = '#3F51B5';
+                        previewLink.style.color = '#FFFFFF';
+                        linkPreviewContainer.appendChild(previewLink);
+                        console.log('Elemento de prévia de link criado:', previewLink);
+                    }
+                }
+                
+                if (!previewLink || !linkColor || !linkTextColor) {
+                    console.error('Elementos necessários para atualizar a prévia de link não encontrados');
+                    console.log('previewLink:', previewLink);
+                    console.log('linkColor:', linkColor);
+                    console.log('linkTextColor:', linkTextColor);
+                    return;
+                }
+                
+                previewLink.style.backgroundColor = linkColor.value;
+                previewLink.style.color = linkTextColor.value;
+                
+                if (linkTitle && linkTitle.value) {
+                    previewLink.textContent = linkTitle.value;
+                } else {
+                    previewLink.textContent = 'Prévia do Link';
+                }
+                
+                console.log('Prévia de link atualizada:', linkColor.value, linkTextColor.value);
+            }
+            
+            // Função para atualizar prévia do texto em tempo real
+            function updateTextPreview() {
+                console.log('Atualizando prévia do texto...');
+                
+                // Verificar novamente se temos o elemento de prévia
+                if (!textPreview && textPreviewContainer) {
+                    textPreview = textPreviewContainer.querySelector('p');
+                    if (!textPreview) {
+                        textPreview = document.createElement('p');
+                        textPreview.textContent = 'Prévia do texto com o estilo selecionado';
+                        textPreview.style.textAlign = 'center';
+                        textPreview.style.color = '#000000';
+                        textPreviewContainer.appendChild(textPreview);
+                        console.log('Elemento de prévia de texto criado:', textPreview);
+                    }
+                }
+                
+                if (!textPreview || !textColorInput || !textAlign) {
+                    console.error('Elementos necessários para atualizar a prévia de texto não encontrados');
+                    console.log('textPreview:', textPreview);
+                    console.log('textColorInput:', textColorInput);
+                    console.log('textAlign:', textAlign);
+                    return;
+                }
+                
+                textPreview.style.color = textColorInput.value;
+                textPreview.style.textAlign = textAlign.value;
+                
+                if (textContent && textContent.value) {
+                    textPreview.textContent = textContent.value;
+                } else {
+                    textPreview.textContent = 'Prévia do texto com o estilo selecionado';
+                }
+                
+                console.log('Prévia de texto atualizada:', textColorInput.value, textAlign.value);
+            }
+            
+            // Função para criar os controles de edição para cada bloco
+            function createBlockControls(blockElement, blockType, blockData) {
+                const controlsDiv = document.createElement('div');
+                controlsDiv.className = 'block-controls';
+                
+                // Botão de edição
+                const editButton = document.createElement('button');
+                editButton.className = 'edit-block';
+                editButton.innerHTML = '<i class="fas fa-edit"></i> Editar';
+                editButton.addEventListener('click', function() {
+                    editBlock(blockElement, blockType, blockData);
+                });
+                
+                // Botão de exclusão
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-block';
+                deleteButton.innerHTML = '<i class="fas fa-trash"></i> Excluir';
+                deleteButton.addEventListener('click', function() {
+                    if (confirm('Tem certeza que deseja excluir este bloco?')) {
+                        blockElement.remove();
+                    }
+                });
+                
+                controlsDiv.appendChild(editButton);
+                controlsDiv.appendChild(deleteButton);
+                
+                return controlsDiv;
+            }
+            
+            // Função para editar um bloco existente
+            function editBlock(blockElement, blockType, blockData) {
+                console.log('Editando bloco:', blockType, blockData);
+                
+                // Definir o estado de edição
+                isEditing = true;
+                currentEditingElement = blockElement;
+                
+                // Armazenar os dados no elemento para referência futura
+                blockElement._blockData = blockData;
+                
+                // Abrir o modal correspondente ao tipo de bloco
+                if (blockType === 'link') {
+                    // Limpar o formulário antes de preencher com os dados existentes
+                    if (linkForm) linkForm.reset();
+                    
+                    // Preencher o formulário com os dados existentes
+                    linkTitle.value = blockData.title || '';
+                    linkUrl.value = blockData.url || '';
+                    linkColor.value = blockData.backgroundColor || '#3F51B5';
+                    linkTextColor.value = blockData.textColor || '#FFFFFF';
+                    
+                    // Atualizar a prévia
+                    setTimeout(updateLinkPreview, 100);
+                    
+                    // Mudar o texto do botão para "Atualizar"
+                    const saveButton = document.querySelector('#linkModal .save-button');
+                    if (saveButton) saveButton.textContent = 'Atualizar';
+                    
+                    // Abrir o modal
+                    openModal('linkModal');
+                } else if (blockType === 'text') {
+                    // Limpar o formulário antes de preencher com os dados existentes
+                    if (textForm) textForm.reset();
+                    
+                    // Preencher o formulário com os dados existentes
+                    textContent.value = blockData.content || '';
+                    textAlign.value = blockData.align || 'center';
+                    textColorInput.value = blockData.color || '#000000';
+                    
+                    // Atualizar a prévia
+                    setTimeout(updateTextPreview, 100);
+                    
+                    // Mudar o texto do botão para "Atualizar"
+                    const saveButton = document.querySelector('#textModal .save-button');
+                    if (saveButton) saveButton.textContent = 'Atualizar';
+                    
+                    // Abrir o modal
+                    openModal('textModal');
+                } else if (blockType === 'image') {
+                    // Para imagens, apenas abrimos o modal de imagem
+                    // Não é possível editar a imagem existente, apenas substituí-la
+                    alert('Para editar uma imagem, exclua-a e adicione uma nova.');
+                    isEditing = false;
+                    currentEditingElement = null;
+                }
+            }
+
+            // Função para abrir modal específico
+            function openModal(modalId) {
+                console.log('Abrindo modal:', modalId, 'isEditing:', isEditing);
+                
+                // Resetar o estado de edição quando abrimos um modal diretamente
+                // (não através da função editBlock)
+                if (!isEditing) {
+                    currentEditingElement = null;
+                    
+                    // Garantir que o botão diga "Adicionar" quando estamos adicionando um novo bloco
+                    const saveButton = document.querySelector(`#${modalId} .save-button`);
+                    if (saveButton) {
+                        saveButton.textContent = 'Adicionar';
+                    }
+                }
+                
+                modalOverlay.style.display = 'flex';
+                document.getElementById(modalId).style.display = 'block';
+                
+                // Forçar a atualização das prévias quando o modal é aberto
+                if (modalId === 'linkModal') {
+                    console.log('Atualizando prévia do link ao abrir o modal');
+                    setTimeout(updateLinkPreview, 100);
+                } else if (modalId === 'textModal') {
+                    console.log('Atualizando prévia do texto ao abrir o modal');
+                    setTimeout(updateTextPreview, 100);
+                }
+            }
+
+            // Função para fechar todos os modais
+            function closeAllModals() {
+                modalOverlay.style.display = 'none';
+                modals.forEach(modal => {
+                    modal.style.display = 'none';
+                });
+                
+                // Restaurar os textos dos botões para "Adicionar" ao fechar os modais
+                document.querySelectorAll('.modal .save-button').forEach(button => {
+                    button.textContent = 'Adicionar';
+                });
+                
+                // Resetar o estado de edição ao fechar os modais
+                isEditing = false;
+                currentEditingElement = null;
+                
+                // Limpar os formulários
+                if (linkForm) linkForm.reset();
+                if (textForm) textForm.reset();
+                if (imageForm) {
+                    imageForm.reset();
+                    if (imagePreview) imagePreview.innerHTML = '';
+                }
+                
+                // Resetar as prévias
+                if (previewLink) {
+                    previewLink.textContent = 'Prévia do Link';
+                    previewLink.style.backgroundColor = '#3F51B5';
+                    previewLink.style.color = '#FFFFFF';
+                }
+                
+                if (textPreview) {
+                    textPreview.textContent = 'Prévia do texto com o estilo selecionado';
+                    textPreview.style.textAlign = 'center';
+                    textPreview.style.color = '#000000';
+                }
+            }
+
+            // Adicionar evento de clique para cada botão de bloco
+            blockButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    console.log('Botão de bloco clicado:', this.textContent.trim());
+                    
+                    // Resetar o estado de edição quando clicamos em um botão de bloco
+                    isEditing = false;
+                    currentEditingElement = null;
+                    
+                    const blockType = this.textContent.trim().toLowerCase();
+                    
+                    if (blockType.includes('link')) {
+                        // Limpar o formulário antes de abrir o modal
+                        if (linkForm) linkForm.reset();
+                        
+                        // Resetar os valores padrão
+                        if (linkColor) linkColor.value = '#3F51B5';
+                        if (linkTextColor) linkTextColor.value = '#FFFFFF';
+                        
+                        // Atualizar a prévia
+                        setTimeout(updateLinkPreview, 100);
+                        
+                        openModal('linkModal');
+                    } else if (blockType.includes('imagem')) {
+                        // Limpar o formulário antes de abrir o modal
+                        if (imageForm) {
+                            imageForm.reset();
+                            if (imagePreview) imagePreview.innerHTML = '';
+                        }
+                        openModal('imageModal');
+                    } else if (blockType.includes('texto')) {
+                        // Limpar o formulário antes de abrir o modal
+                        if (textForm) textForm.reset();
+                        
+                        // Resetar os valores padrão
+                        if (textAlign) textAlign.value = 'center';
+                        if (textColorInput) textColorInput.value = '#000000';
+                        
+                        // Atualizar a prévia
+                        setTimeout(updateTextPreview, 100);
+                        
+                        openModal('textModal');
+                    } else if (blockType.includes('redes sociais')) {
+                        // Implementar modal de redes sociais
+                        alert('Modal de Redes Sociais será implementado em breve!');
+                    } else if (blockType.includes('spotify')) {
+                        // Implementar modal de Spotify
+                        alert('Modal de Spotify será implementado em breve!');
+                    } else if (blockType.includes('youtube')) {
+                        // Implementar modal de Youtube
+                        alert('Modal de Youtube será implementado em breve!');
+                    }
+                });
+            });
+
+            // Fechar modais ao clicar no botão de fechar ou cancelar
+            closeButtons.forEach(button => {
+                button.addEventListener('click', closeAllModals);
+            });
+
+            cancelButtons.forEach(button => {
+                button.addEventListener('click', closeAllModals);
+            });
+
+            // Fechar modal ao clicar fora dele
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) {
+                    closeAllModals();
+                }
+            });
+            
+            // Adicionar eventos para atualização em tempo real para o link
+            if (linkTitle) {
+                linkTitle.addEventListener('input', updateLinkPreview);
+            }
+            
+            if (linkColor) {
+                linkColor.addEventListener('input', updateLinkPreview);
+            }
+            
+            if (linkTextColor) {
+                linkTextColor.addEventListener('input', updateLinkPreview);
+            }
+            
+            // Adicionar funcionalidade para os botões de emoji
+            const emojiButtons = document.querySelectorAll('.emoji-button');
+            emojiButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const emoji = this.getAttribute('data-emoji');
+                    if (linkTitle) {
+                        // Inserir o emoji na posição do cursor
+                        const cursorPos = linkTitle.selectionStart;
+                        const textBefore = linkTitle.value.substring(0, cursorPos);
+                        const textAfter = linkTitle.value.substring(cursorPos);
+                        linkTitle.value = textBefore + emoji + textAfter;
+                        
+                        // Atualizar a prévia
+                        updateLinkPreview();
+                        
+                        // Focar no input e posicionar o cursor após o emoji
+                        linkTitle.focus();
+                        linkTitle.selectionStart = cursorPos + emoji.length;
+                        linkTitle.selectionEnd = cursorPos + emoji.length;
+                    }
+                });
+            });
+            
+            // Adicionar eventos para atualização em tempo real para o texto
+            if (textContent) {
+                textContent.addEventListener('input', updateTextPreview);
+            }
+            
+            if (textAlign) {
+                textAlign.addEventListener('change', updateTextPreview);
+            }
+            
+            if (textColorInput) {
+                textColorInput.addEventListener('input', updateTextPreview);
+            }
+            
+            // Adicionar funcionalidade para os botões de emoji no formulário de texto
+            const textEmojiButtons = document.querySelectorAll('.text-emoji-button');
+            textEmojiButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const emoji = this.getAttribute('data-emoji');
+                    if (textContent) {
+                        // Inserir o emoji na posição do cursor
+                        const cursorPos = textContent.selectionStart;
+                        const textBefore = textContent.value.substring(0, cursorPos);
+                        const textAfter = textContent.value.substring(cursorPos);
+                        textContent.value = textBefore + emoji + textAfter;
+                        
+                        // Atualizar a prévia
+                        updateTextPreview();
+                        
+                        // Focar no textarea e posicionar o cursor após o emoji
+                        textContent.focus();
+                        textContent.selectionStart = cursorPos + emoji.length;
+                        textContent.selectionEnd = cursorPos + emoji.length;
+                    }
+                });
+            });
+            
+            // Preview da imagem selecionada
+            if (imageUpload) {
+                imageUpload.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+            
+            // Submissão do formulário de link
+            linkForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Formulário de link enviado, isEditing:', isEditing);
+                
+                const title = linkTitle.value;
+                const url = linkUrl.value;
+                const color = linkColor.value;
+                const textColor = linkTextColor.value;
+                
+                // Se estiver editando, não criar um novo elemento
+                if (isEditing && currentEditingElement) {
+                    console.log('Atualizando link existente');
+                    // Atualizar o bloco existente
+                    const linkElement = currentEditingElement.querySelector('a');
+                    if (linkElement) {
+                        console.log('Elemento de link encontrado, atualizando...');
+                        linkElement.textContent = title;
+                        linkElement.href = url;
+                        linkElement.style.backgroundColor = color;
+                        linkElement.style.color = textColor;
+                        
+                        // Atualizar os dados do bloco
+                        const blockData = currentEditingElement._blockData;
+                        if (blockData) {
+                            blockData.title = title;
+                            blockData.url = url;
+                            blockData.backgroundColor = color;
+                            blockData.textColor = textColor;
+                        }
+                    } else {
+                        console.error('Elemento de link não encontrado no bloco atual');
+                        console.log('currentEditingElement:', currentEditingElement);
+                        console.log('HTML do elemento:', currentEditingElement.innerHTML);
+                    }
+                    
+                    // Resetar o estado de edição
+                    isEditing = false;
+                    currentEditingElement = null;
+                } else {
+                    console.log('Criando novo link');
+                    // Criar wrapper para o link
+                    const linkWrapper = document.createElement('div');
+                    linkWrapper.className = 'bio-link-wrapper';
+                    
+                    // Criar elemento de link
+                    const linkElement = document.createElement('a');
+                    linkElement.href = url;
+                    linkElement.className = 'bio-link';
+                    linkElement.textContent = title;
+                    linkElement.style.backgroundColor = color;
+                    linkElement.style.color = textColor;
+                    linkElement.target = '_blank';
+                    
+                    // Adicionar o link ao wrapper
+                    linkWrapper.appendChild(linkElement);
+                    
+                    // Dados do bloco para edição posterior
+                    const blockData = {
+                        title: title,
+                        url: url,
+                        backgroundColor: color,
+                        textColor: textColor
+                    };
+                    
+                    // Armazenar os dados no elemento para referência futura
+                    linkWrapper._blockData = blockData;
+                    
+                    // Adicionar controles de edição
+                    const controls = createBlockControls(linkWrapper, 'link', blockData);
+                    linkWrapper.appendChild(controls);
+                    
+                    // Adicionar ao preview
+                    bioContent.appendChild(linkWrapper);
+                }
+                
+                // Limpar formulário e fechar modal
+                this.reset();
+                closeAllModals();
+            });
+
+            // Submissão do formulário de imagem
+            imageForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const title = document.getElementById('imageTitle').value;
+                const file = imageUpload.files[0];
+                
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Criar wrapper para a imagem
+                        const imageWrapper = document.createElement('div');
+                        imageWrapper.className = 'bio-image-wrapper';
+                        
+                        // Criar container de imagem
+                        const imageContainer = document.createElement('div');
+                        imageContainer.className = 'bio-image';
+                        
+                        // Criar elemento de imagem
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = title || 'Imagem';
+                        
+                        // Adicionar título se fornecido
+                        if (title) {
+                            const titleElement = document.createElement('p');
+                            titleElement.textContent = title;
+                            titleElement.style.textAlign = 'center';
+                            titleElement.style.margin = '5px 0';
+                            imageContainer.appendChild(titleElement);
+                        }
+                        
+                        imageContainer.appendChild(img);
+                        imageWrapper.appendChild(imageContainer);
+                        
+                        // Dados do bloco para edição posterior
+                        const blockData = {
+                            title: title,
+                            imageSrc: e.target.result
+                        };
+                        
+                        // Armazenar os dados no elemento para referência futura
+                        imageWrapper._blockData = blockData;
+                        
+                        // Adicionar controles de edição
+                        const controls = createBlockControls(imageWrapper, 'image', blockData);
+                        imageWrapper.appendChild(controls);
+                        
+                        // Adicionar ao preview
+                        bioContent.appendChild(imageWrapper);
+                    };
+                    reader.readAsDataURL(file);
+                }
+                
+                // Limpar formulário e fechar modal
+                this.reset();
+                imagePreview.innerHTML = '';
+                closeAllModals();
+            });
+            
+            // Submissão do formulário de texto
+            textForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Formulário de texto enviado, isEditing:', isEditing);
+                
+                const content = textContent.value;
+                const align = textAlign.value;
+                const color = textColorInput.value;
+                
+                // Se estiver editando, não criar um novo elemento
+                if (isEditing && currentEditingElement) {
+                    console.log('Atualizando texto existente');
+                    // Atualizar o bloco existente
+                    const textElement = currentEditingElement.querySelector('.bio-text');
+                    if (textElement) {
+                        console.log('Elemento de texto encontrado, atualizando...');
+                        textElement.textContent = content;
+                        textElement.style.textAlign = align;
+                        textElement.style.color = color;
+                        
+                        // Atualizar os dados do bloco
+                        const blockData = currentEditingElement._blockData;
+                        if (blockData) {
+                            blockData.content = content;
+                            blockData.align = align;
+                            blockData.color = color;
+                        }
+                    } else {
+                        console.error('Elemento de texto não encontrado no bloco atual');
+                        console.log('currentEditingElement:', currentEditingElement);
+                        console.log('HTML do elemento:', currentEditingElement.innerHTML);
+                    }
+                    
+                    // Resetar o estado de edição
+                    isEditing = false;
+                    currentEditingElement = null;
+                } else {
+                    console.log('Criando novo texto');
+                    // Criar wrapper para o texto
+                    const textWrapper = document.createElement('div');
+                    textWrapper.className = 'bio-text-wrapper';
+                    
+                    // Criar elemento de texto
+                    const textElement = document.createElement('div');
+                    textElement.className = 'bio-text';
+                    textElement.textContent = content;
+                    textElement.style.textAlign = align;
+                    textElement.style.color = color;
+                    
+                    // Adicionar o texto ao wrapper
+                    textWrapper.appendChild(textElement);
+                    
+                    // Dados do bloco para edição posterior
+                    const blockData = {
+                        content: content,
+                        align: align,
+                        color: color
+                    };
+                    
+                    // Armazenar os dados no elemento para referência futura
+                    textWrapper._blockData = blockData;
+                    
+                    // Adicionar controles de edição
+                    const controls = createBlockControls(textWrapper, 'text', blockData);
+                    textWrapper.appendChild(controls);
+                    
+                    // Adicionar ao preview
+                    bioContent.appendChild(textWrapper);
+                }
+                
+                // Limpar formulário e fechar modal
+                this.reset();
+                closeAllModals();
+            });
+            
+            // Inicializar as prévias após definir as funções
+            setTimeout(function() {
+                console.log('Inicializando prévias...');
+                try {
+                    if (typeof updateLinkPreview === 'function') {
+                        console.log('Chamando updateLinkPreview');
+                        updateLinkPreview();
+                    }
+                    if (typeof updateTextPreview === 'function') {
+                        console.log('Chamando updateTextPreview');
+                        updateTextPreview();
+                    }
+                } catch (error) {
+                    console.error('Erro ao inicializar prévias:', error);
+                }
+            }, 500);
         });
     </script>
 </body>

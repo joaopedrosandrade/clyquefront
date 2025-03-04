@@ -44,6 +44,7 @@
             border-radius: 8px;
             overflow: hidden;
             margin-top: 20px;
+            table-layout: fixed;
         }
         .bio-links-table thead {
             background-color: #2c3e50;
@@ -62,6 +63,7 @@
         }
         .bio-links-table td {
             padding: 15px;
+            word-break: break-word;
         }
         .bio-links-table a {
             color: var(--primary-color);
@@ -73,12 +75,15 @@
         .action-buttons {
             display: flex;
             gap: 10px;
+            justify-content: flex-start;
+            min-width: 120px;
         }
         .action-button {
             background: none;
             border: none;
             cursor: pointer;
             font-size: 18px;
+            padding: 5px;
         }
         .edit-button {
             color: #3498db;
@@ -91,6 +96,99 @@
         }
         .delete-button {
             color: #e74c3c;
+        }
+        
+        /* Estilos para a barra de pesquisa */
+        .search-container {
+            margin: 20px 0;
+            display: flex;
+            max-width: 500px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #2c3e50;
+            border-radius: 5px 0 0 5px;
+            background-color: #1a2639;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .search-input::placeholder {
+            color: #aaa;
+        }
+        
+        .search-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .search-button:hover {
+            opacity: 0.9;
+        }
+        
+        /* Estilos para a paginação */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 5px;
+        }
+        
+        .pagination-button {
+            background-color: #1a2639;
+            color: white;
+            border: 1px solid #2c3e50;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .pagination-button.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .pagination-button:hover:not(.active):not(.disabled) {
+            background-color: #2c3e50;
+        }
+        
+        .pagination-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Mensagem de nenhum resultado */
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            background-color: #1a2639;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .no-results i {
+            font-size: 40px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+        
+        .no-results h3 {
+            margin: 0 0 10px 0;
+            color: #fff;
+        }
+        
+        .no-results p {
+            margin: 0;
+            color: #aaa;
         }
         
         /* Esconder navegação mobile no desktop */
@@ -121,6 +219,14 @@
             }
             
             .action-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .search-container {
+                max-width: 100%;
+            }
+            
+            .pagination {
                 flex-wrap: wrap;
             }
             
@@ -168,17 +274,53 @@
             
             /* Esconder colunas menos importantes em telas muito pequenas */
             @media (max-width: 480px) {
+                .bio-links-table th:nth-child(2),
+                .bio-links-table td:nth-child(2),
                 .bio-links-table th:nth-child(3),
-                .bio-links-table td:nth-child(3),
-                .bio-links-table th:nth-child(4),
-                .bio-links-table td:nth-child(4) {
+                .bio-links-table td:nth-child(3) {
                     display: none;
                 }
                 
                 .action-button {
                     font-size: 16px;
                 }
+                
+                .pagination-button {
+                    padding: 6px 10px;
+                    min-width: 35px;
+                }
             }
+        }
+        
+        /* Garantir que a coluna de ações seja sempre visível */
+        .bio-links-table th:last-child,
+        .bio-links-table td:last-child {
+            position: sticky;
+            right: 0;
+            background-color: #1a2639;
+            z-index: 1;
+            box-shadow: -5px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Definir larguras específicas para cada coluna */
+        .bio-links-table th:nth-child(1),
+        .bio-links-table td:nth-child(1) {
+            width: 40%;
+        }
+        
+        .bio-links-table th:nth-child(2),
+        .bio-links-table td:nth-child(2) {
+            width: 15%;
+        }
+        
+        .bio-links-table th:nth-child(3),
+        .bio-links-table td:nth-child(3) {
+            width: 20%;
+        }
+        
+        .bio-links-table th:nth-child(4),
+        .bio-links-table td:nth-child(4) {
+            width: 25%;
         }
     </style>
 </head>
@@ -236,19 +378,25 @@
                 </a>
             </div>
 
-            <table class="bio-links-table">
+            <!-- Barra de pesquisa -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar por URL..." aria-label="Pesquisar">
+                <button id="searchButton" class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <table class="bio-links-table" id="bioLinksTable">
                 <thead>
                     <tr>
-                        <th>Título</th>
                         <th>URL</th>
                         <th>Cliques</th>
                         <th>Última Atualização</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Meu Portfólio</td>
+                <tbody id="bioLinksTableBody">
+                    <tr data-id="1">
                         <td><a href="#">clyque.bio/portfolio</a></td>
                         <td>1243</td>
                         <td>2025-04-10</td>
@@ -261,8 +409,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Loja Online</td>
+                    <tr data-id="2">
                         <td><a href="#">clyque.bio/loja</a></td>
                         <td>856</td>
                         <td>2025-04-08</td>
@@ -275,8 +422,76 @@
                             </div>
                         </td>
                     </tr>
+                    <tr data-id="3">
+                        <td><a href="#">clyque.bio/blog</a></td>
+                        <td>421</td>
+                        <td>2025-04-05</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-button edit-button"><i class="fas fa-edit"></i></button>
+                                <button class="action-button copy-button"><i class="fas fa-copy"></i></button>
+                                <button class="action-button view-button"><i class="fas fa-eye"></i></button>
+                                <button class="action-button delete-button"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr data-id="4">
+                        <td><a href="#">clyque.bio/social</a></td>
+                        <td>1892</td>
+                        <td>2025-04-03</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-button edit-button"><i class="fas fa-edit"></i></button>
+                                <button class="action-button copy-button"><i class="fas fa-copy"></i></button>
+                                <button class="action-button view-button"><i class="fas fa-eye"></i></button>
+                                <button class="action-button delete-button"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr data-id="5">
+                        <td><a href="#">clyque.bio/contato</a></td>
+                        <td>634</td>
+                        <td>2025-04-01</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-button edit-button"><i class="fas fa-edit"></i></button>
+                                <button class="action-button copy-button"><i class="fas fa-copy"></i></button>
+                                <button class="action-button view-button"><i class="fas fa-eye"></i></button>
+                                <button class="action-button delete-button"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr data-id="6">
+                        <td><a href="#">clyque.bio/projetos</a></td>
+                        <td>329</td>
+                        <td>2025-03-28</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-button edit-button"><i class="fas fa-edit"></i></button>
+                                <button class="action-button copy-button"><i class="fas fa-copy"></i></button>
+                                <button class="action-button view-button"><i class="fas fa-eye"></i></button>
+                                <button class="action-button delete-button"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+
+            <!-- Mensagem de nenhum resultado -->
+            <div class="no-results" id="noResults">
+                <i class="fas fa-search"></i>
+                <h3>Nenhum resultado encontrado</h3>
+                <p>Tente usar termos diferentes na sua pesquisa</p>
+            </div>
+
+            <!-- Paginação -->
+            <div class="pagination" id="pagination">
+                <button class="pagination-button" id="firstPage"><i class="fas fa-angle-double-left"></i></button>
+                <button class="pagination-button" id="prevPage"><i class="fas fa-angle-left"></i></button>
+                <div id="pageNumbers"></div>
+                <button class="pagination-button" id="nextPage"><i class="fas fa-angle-right"></i></button>
+                <button class="pagination-button" id="lastPage"><i class="fas fa-angle-double-right"></i></button>
+            </div>
         </div>
     </main>
 
@@ -288,5 +503,229 @@
         <a href="#"><i class="fas fa-qrcode"></i> <span>QR</span></a>
         <a href="#"><i class="fas fa-cog"></i> <span>Config</span></a>
     </nav>
+
+    <!-- Script para funcionalidade de pesquisa e paginação -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos DOM
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const bioLinksTable = document.getElementById('bioLinksTable');
+            const bioLinksTableBody = document.getElementById('bioLinksTableBody');
+            const noResults = document.getElementById('noResults');
+            const pagination = document.getElementById('pagination');
+            const firstPageBtn = document.getElementById('firstPage');
+            const prevPageBtn = document.getElementById('prevPage');
+            const nextPageBtn = document.getElementById('nextPage');
+            const lastPageBtn = document.getElementById('lastPage');
+            const pageNumbers = document.getElementById('pageNumbers');
+            
+            // Configurações de paginação
+            const itemsPerPage = 10;
+            let currentPage = 1;
+            let filteredItems = [];
+            
+            // Obter todos os itens da tabela
+            const getAllItems = () => {
+                return Array.from(bioLinksTableBody.querySelectorAll('tr'));
+            };
+            
+            // Inicializar com todos os itens
+            const allItems = getAllItems();
+            filteredItems = [...allItems];
+            
+            // Função para pesquisar
+            const searchItems = (query) => {
+                if (!query.trim()) {
+                    filteredItems = [...allItems];
+                } else {
+                    query = query.toLowerCase();
+                    filteredItems = allItems.filter(item => {
+                        const url = item.cells[0].textContent.toLowerCase();
+                        return url.includes(query);
+                    });
+                }
+                
+                // Mostrar mensagem se não houver resultados
+                if (filteredItems.length === 0) {
+                    bioLinksTable.style.display = 'none';
+                    noResults.style.display = 'block';
+                    pagination.style.display = 'none';
+                } else {
+                    bioLinksTable.style.display = 'table';
+                    noResults.style.display = 'none';
+                    pagination.style.display = 'flex';
+                    currentPage = 1;
+                    renderItems();
+                    renderPagination();
+                }
+            };
+            
+            // Função para renderizar itens da página atual
+            const renderItems = () => {
+                // Limpar tabela
+                bioLinksTableBody.innerHTML = '';
+                
+                // Calcular índices de início e fim
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, filteredItems.length);
+                
+                // Adicionar itens da página atual
+                for (let i = startIndex; i < endIndex; i++) {
+                    bioLinksTableBody.appendChild(filteredItems[i].cloneNode(true));
+                }
+                
+                // Adicionar event listeners para os botões de ação
+                setupActionButtons();
+            };
+            
+            // Configurar botões de ação
+            const setupActionButtons = () => {
+                // Botões de editar
+                document.querySelectorAll('.edit-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const row = this.closest('tr');
+                        const id = row.getAttribute('data-id');
+                        window.location.href = `biolink-editor.html?id=${id}`;
+                    });
+                });
+                
+                // Botões de copiar
+                document.querySelectorAll('.copy-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const row = this.closest('tr');
+                        const url = row.cells[0].textContent;
+                        navigator.clipboard.writeText(url).then(() => {
+                            alert('URL copiada para a área de transferência!');
+                        });
+                    });
+                });
+                
+                // Botões de visualizar
+                document.querySelectorAll('.view-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const row = this.closest('tr');
+                        const url = row.cells[0].textContent;
+                        window.open(url, '_blank');
+                    });
+                });
+                
+                // Botões de excluir
+                document.querySelectorAll('.delete-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        if (confirm('Tem certeza que deseja excluir este bio link?')) {
+                            const row = this.closest('tr');
+                            const id = row.getAttribute('data-id');
+                            // Aqui você adicionaria a lógica para excluir o item do servidor
+                            row.remove();
+                            
+                            // Atualizar a lista de itens e a paginação
+                            filteredItems = getAllItems();
+                            renderPagination();
+                            
+                            // Se a página atual não tiver mais itens, voltar para a página anterior
+                            if (currentPage > Math.ceil(filteredItems.length / itemsPerPage)) {
+                                currentPage = Math.max(1, currentPage - 1);
+                            }
+                            renderItems();
+                        }
+                    });
+                });
+            };
+            
+            // Função para renderizar a paginação
+            const renderPagination = () => {
+                const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+                
+                // Atualizar estado dos botões de navegação
+                firstPageBtn.classList.toggle('disabled', currentPage === 1);
+                prevPageBtn.classList.toggle('disabled', currentPage === 1);
+                nextPageBtn.classList.toggle('disabled', currentPage === totalPages || totalPages === 0);
+                lastPageBtn.classList.toggle('disabled', currentPage === totalPages || totalPages === 0);
+                
+                // Limpar e renderizar números de página
+                pageNumbers.innerHTML = '';
+                
+                // Determinar quais números de página mostrar
+                let startPage = Math.max(1, currentPage - 1);
+                let endPage = Math.min(totalPages, startPage + 2);
+                
+                // Ajustar se estamos no final
+                if (endPage - startPage < 2) {
+                    startPage = Math.max(1, endPage - 2);
+                }
+                
+                // Criar botões de número de página
+                for (let i = startPage; i <= endPage; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.className = 'pagination-button';
+                    pageButton.textContent = i;
+                    
+                    if (i === currentPage) {
+                        pageButton.classList.add('active');
+                    }
+                    
+                    pageButton.addEventListener('click', () => {
+                        currentPage = i;
+                        renderItems();
+                        renderPagination();
+                    });
+                    
+                    pageNumbers.appendChild(pageButton);
+                }
+            };
+            
+            // Event listeners para botões de navegação
+            firstPageBtn.addEventListener('click', () => {
+                if (currentPage !== 1) {
+                    currentPage = 1;
+                    renderItems();
+                    renderPagination();
+                }
+            });
+            
+            prevPageBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderItems();
+                    renderPagination();
+                }
+            });
+            
+            nextPageBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderItems();
+                    renderPagination();
+                }
+            });
+            
+            lastPageBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+                if (currentPage !== totalPages) {
+                    currentPage = totalPages;
+                    renderItems();
+                    renderPagination();
+                }
+            });
+            
+            // Event listener para pesquisa
+            searchButton.addEventListener('click', () => {
+                searchItems(searchInput.value);
+            });
+            
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    searchItems(searchInput.value);
+                }
+            });
+            
+            // Inicializar a página
+            renderItems();
+            renderPagination();
+            setupActionButtons();
+        });
+    </script>
 </body>
 </html> 
