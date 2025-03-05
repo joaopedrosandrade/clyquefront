@@ -467,11 +467,15 @@
         .social-network-item .fab.fa-instagram { color: #E1306C; }
         .social-network-item .fab.fa-facebook { color: #1877F2; }
         .social-network-item .fab.fa-twitter { color: #1DA1F2; }
-        .social-network-item .fab.fa-youtube { color: #FF0000; }
         .social-network-item .fab.fa-tiktok { color: #000000; }
         .social-network-item .fab.fa-linkedin { color: #0A66C2; }
         .social-network-item .fab.fa-whatsapp { color: #25D366; }
         .social-network-item .fab.fa-telegram { color: #0088cc; }
+        .social-network-item .fab.fa-discord { color: #5865F2; }
+        .social-network-item .fab.fa-youtube { color: #FF0000; }
+        .social-network-item .fab.fa-pinterest { color: #E60023; }
+        .social-network-item .fab.fa-twitch { color: #9146FF; }
+        .social-network-item .fab.fa-soundcloud { color: #FF3300; }
 
         .social-url {
             grid-column: 1 / 4;
@@ -563,11 +567,15 @@
         .social-icon.instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
         .social-icon.facebook { background-color: #1877F2; }
         .social-icon.twitter { background-color: #1DA1F2; }
-        .social-icon.youtube { background-color: #FF0000; }
         .social-icon.tiktok { background-color: #000000; }
         .social-icon.linkedin { background-color: #0A66C2; }
         .social-icon.whatsapp { background-color: #25D366; }
         .social-icon.telegram { background-color: #0088cc; }
+        .social-icon.discord { background-color: #5865F2; }
+        .social-icon.youtube { background-color: #FF0000; }
+        .social-icon.pinterest { background-color: #E60023; }
+        .social-icon.twitch { background-color: #9146FF; }
+        .social-icon.soundcloud { background-color: #FF3300; }
 
         /* Estilos para o bloco de redes sociais no preview */
         .bio-social-wrapper {
@@ -639,6 +647,150 @@
             font-size: 18px;
             text-decoration: none;
         }
+
+        /* Estilos para o bloco do Spotify */
+        .spotify-block {
+            width: 100%;
+            margin: 10px 0;
+            line-height: 0;
+        }
+
+        .spotify-block iframe {
+            display: block;
+            width: 100%;
+            border: none;
+            margin: 0;
+            line-height: 0;
+        }
+
+        .spotify-input-container {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #f8f8f8;
+        }
+
+        .spotify-block .block-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .spotify-block .block-header i {
+            color: #1DB954;
+            font-size: 24px;
+        }
+
+        .spotify-block .block-header h4 {
+            margin: 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .spotify-input-container label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .spotify-type-select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            background-color: white;
+            color: #333;
+        }
+
+        .spotify-url-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .spotify-preview {
+            width: 100%;
+            min-height: 80px;
+            border: none;
+            margin-top: 10px;
+        }
+
+        .spotify-preview .text-muted {
+            color: #666;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Estilos para o bloco de redes sociais no preview */
+
+        /* Estilos para o bloco do Spotify */
+        .bio-spotify-wrapper {
+            position: relative;
+            margin: 10px 0;
+            line-height: 0;
+        }
+
+        .spotify-block {
+            width: 100%;
+            line-height: 0;
+        }
+
+        .spotify-block iframe {
+            display: block;
+            width: 100%;
+            border: none;
+            margin: 0;
+            line-height: 0;
+        }
+
+        .bio-spotify-wrapper .drag-handle {
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%);
+            cursor: move;
+            padding: 4px;
+            color: #666;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .bio-spotify-wrapper .delete-block {
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #f44336;
+            cursor: pointer;
+            padding: 4px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            font-size: 16px;
+        }
+
+        .bio-spotify-wrapper:hover .drag-handle,
+        .bio-spotify-wrapper:hover .delete-block {
+            opacity: 1;
+        }
+
+        .bio-spotify-wrapper.dragging {
+            opacity: 0.5;
+            cursor: move;
+        }
+    </style>
+    <!-- Font Awesome para ícones -->
     </style>
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -976,12 +1128,6 @@
                                 <input type="url" id="twitterUrl" placeholder="https://twitter.com/seu_perfil" class="social-url">
                             </div>
                             <div class="social-network-item">
-                                <input type="checkbox" id="youtube" name="socialNetworks" value="youtube">
-                                <i class="fab fa-youtube"></i>
-                                <label for="youtube" class="checkbox-label">YouTube</label>
-                                <input type="url" id="youtubeUrl" placeholder="https://youtube.com/c/seu_canal" class="social-url">
-                            </div>
-                            <div class="social-network-item">
                                 <input type="checkbox" id="tiktok" name="socialNetworks" value="tiktok">
                                 <i class="fab fa-tiktok"></i>
                                 <label for="tiktok" class="checkbox-label">TikTok</label>
@@ -1004,6 +1150,36 @@
                                 <i class="fab fa-telegram"></i>
                                 <label for="telegram" class="checkbox-label">Telegram</label>
                                 <input type="url" id="telegramUrl" placeholder="https://t.me/seu_perfil" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="discord" name="socialNetworks" value="discord">
+                                <i class="fab fa-discord"></i>
+                                <label for="discord" class="checkbox-label">Discord</label>
+                                <input type="url" id="discordUrl" placeholder="https://discord.gg/seu_servidor" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="youtube" name="socialNetworks" value="youtube">
+                                <i class="fab fa-youtube"></i>
+                                <label for="youtube" class="checkbox-label">Canal do YouTube</label>
+                                <input type="url" id="youtubeUrl" placeholder="https://youtube.com/c/seu_canal" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="pinterest" name="socialNetworks" value="pinterest">
+                                <i class="fab fa-pinterest"></i>
+                                <label for="pinterest" class="checkbox-label">Pinterest</label>
+                                <input type="url" id="pinterestUrl" placeholder="https://pinterest.com/seu_perfil" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="twitch" name="socialNetworks" value="twitch">
+                                <i class="fab fa-twitch"></i>
+                                <label for="twitch" class="checkbox-label">Twitch</label>
+                                <input type="url" id="twitchUrl" placeholder="https://twitch.tv/seu_canal" class="social-url">
+                            </div>
+                            <div class="social-network-item">
+                                <input type="checkbox" id="soundcloud" name="socialNetworks" value="soundcloud">
+                                <i class="fab fa-soundcloud"></i>
+                                <label for="soundcloud" class="checkbox-label">SoundCloud</label>
+                                <input type="url" id="soundcloudUrl" placeholder="https://soundcloud.com/seu_perfil" class="social-url">
                             </div>
                         </div>
                     </div>
@@ -1046,6 +1222,51 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-button">Cancelar</button>
+                        <button type="submit" class="save-button">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para Spotify -->
+        <div class="modal" id="spotifyModal">
+            <div class="modal-header">
+                <h3>Adicionar Player do Spotify</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="spotifyForm">
+                    <div class="form-group">
+                        <div class="block-header">
+                            <i class="fab fa-spotify"></i>
+                            <h4>Incorporar conteúdo do Spotify</h4>
+                        </div>
+                        
+                        <div class="spotify-input-container">
+                            <label for="spotifyType">Tipo de conteúdo</label>
+                            <select id="spotifyType" class="spotify-type-select">
+                                <option value="track">Música</option>
+                                <option value="album">Álbum</option>
+                                <option value="playlist">Playlist</option>
+                                <option value="episode">Episódio de Podcast</option>
+                                <option value="show">Programa/Podcast</option>
+                            </select>
+
+                            <label for="spotifyUrl">URL do Spotify</label>
+                            <input type="url" 
+                                   id="spotifyUrl" 
+                                   class="spotify-url-input" 
+                                   placeholder="Cole aqui a URL do Spotify (ex: https://open.spotify.com/track/...)"
+                                   required>
+                            
+                            <div class="spotify-preview" id="spotifyPreview">
+                                <!-- O preview do player será inserido aqui via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="form-actions">
                         <button type="button" class="cancel-button">Cancelar</button>
                         <button type="submit" class="save-button">Adicionar</button>
@@ -1456,6 +1677,27 @@
                     alert('Para editar uma imagem, exclua-a e adicione uma nova.');
                     isEditing = false;
                     currentEditingElement = null;
+                } else if (blockType === 'spotify') {
+                    // Limpar o formulário antes de preencher com os dados existentes
+                    if (spotifyForm) spotifyForm.reset();
+                    
+                    // Preencher o formulário com os dados existentes
+                    if (spotifyUrl) spotifyUrl.value = blockData.url || '';
+                    
+                    // Atualizar a prévia
+                    if (blockData.url) {
+                        const spotifyData = getSpotifyId(blockData.url);
+                        if (spotifyData) {
+                            spotifyPreview.innerHTML = generateSpotifyEmbed(spotifyData.type, spotifyData.id);
+                        }
+                    }
+                    
+                    // Mudar o texto do botão para "Atualizar"
+                    const saveButton = document.querySelector('#spotifyModal .save-button');
+                    if (saveButton) saveButton.textContent = 'Atualizar';
+                    
+                    // Abrir o modal
+                    openModal('spotifyModal');
                 }
             }
 
@@ -1592,8 +1834,7 @@
                         
                         openModal('socialModal');
                     } else if (blockType.includes('spotify')) {
-                        // Implementar modal de Spotify
-                        alert('Modal de Spotify será implementado em breve!');
+                        openModal('spotifyModal');
                     } else if (blockType.includes('youtube')) {
                         // Implementar modal de Youtube
                         alert('Modal de Youtube será implementado em breve!');
@@ -2442,6 +2683,88 @@
                 
                 openModal('socialModal');
             });
+
+            // Manipulação do Spotify
+            const spotifyForm = document.getElementById('spotifyForm');
+            const spotifyUrl = document.getElementById('spotifyUrl');
+            const spotifyType = document.getElementById('spotifyType');
+            const spotifyPreview = document.getElementById('spotifyPreview');
+
+            // Abrir modal do Spotify
+            document.querySelector('.block-button i.fab.fa-spotify').parentElement.addEventListener('click', function() {
+                openModal('spotifyModal');
+            });
+
+            // Função para extrair o ID do Spotify da URL
+            function getSpotifyId(url) {
+                const match = url.match(/spotify\.com\/(track|album|playlist|episode|show)\/([a-zA-Z0-9]+)/);
+                return match ? { type: match[1], id: match[2] } : null;
+            }
+
+            // Função para gerar o iframe do Spotify
+            function generateSpotifyEmbed(type, id) {
+                return `<iframe style="display:block;border:none;margin:0;padding:0" src="https://open.spotify.com/embed/${type}/${id}?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+            }
+
+            // Atualizar preview quando a URL mudar
+            spotifyUrl.addEventListener('input', function() {
+                const spotifyData = getSpotifyId(this.value);
+                if (spotifyData) {
+                    spotifyType.value = spotifyData.type;
+                    spotifyPreview.innerHTML = generateSpotifyEmbed(spotifyData.type, spotifyData.id);
+                } else {
+                    spotifyPreview.innerHTML = '<p class="text-muted">Cole uma URL válida do Spotify para ver o preview</p>';
+                }
+            });
+
+            // Manipular envio do formulário do Spotify
+            spotifyForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const spotifyData = getSpotifyId(spotifyUrl.value);
+                
+                if (spotifyData) {
+                    // Criar wrapper para o bloco do Spotify
+                    const spotifyWrapper = document.createElement('div');
+                    spotifyWrapper.className = 'bio-spotify-wrapper';
+                    
+                    // Criar o bloco do Spotify
+                    const spotifyBlock = document.createElement('div');
+                    spotifyBlock.className = 'spotify-block';
+                    spotifyBlock.innerHTML = generateSpotifyEmbed(spotifyData.type, spotifyData.id);
+                    
+                    // Adicionar o bloco ao wrapper
+                    spotifyWrapper.appendChild(spotifyBlock);
+                    
+                    // Armazenar os dados para referência
+                    spotifyWrapper._blockData = {
+                        type: spotifyData.type,
+                        url: spotifyUrl.value
+                    };
+                    
+                    // Adicionar alça de arrasto
+                    addDragHandle(spotifyWrapper);
+                    
+                    // Adicionar botão de excluir
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'delete-block';
+                    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+                    deleteButton.addEventListener('click', function() {
+                        spotifyWrapper.remove();
+                    });
+                    spotifyWrapper.appendChild(deleteButton);
+                    
+                    // Adicionar ao preview
+                    bioContent.appendChild(spotifyWrapper);
+                    
+                    // Tornar o elemento arrastável
+                    makeDraggable(spotifyWrapper);
+                    
+                    closeAllModals();
+                    spotifyForm.reset();
+                    spotifyPreview.innerHTML = '';
+                }
+            });
+
         });
     </script>
 </body>
